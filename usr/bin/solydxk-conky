@@ -1,0 +1,40 @@
+#!/bin/bash
+
+case $1 in
+    -kill)
+        killall conky
+        ;;
+    -remove)
+        killall conky
+        if [ -e ~/.conkyrc ]; then
+            rm -vf ~/.conky*
+        fi
+        if [ -e ~/.lua/scripts/clock_rings.lua ]; then
+            rm -rvf ~/.lua/scripts/clock_rings.lua
+        fi
+        if [ -e ~/.config/autostart/conky.desktop ]; then
+            rm -vf ~/.config/autostart/conky.desktop
+        fi
+        
+        ;;
+    -start)
+        conky &
+        ;;
+    -restart)
+        killall conky
+        conky &
+        ;;
+    -help)
+        echo "==============================================================="
+        echo "You can run solydxk-conky from terminal with these parameters:"
+        echo "==============================================================="
+        echo "-help          this screen."
+        echo "-kill          kill the conky process."
+        echo "-remove        remove configuration files for the current user."
+        echo "-start         start Conky for the current user."
+        echo "-restart       restart Conky for the current user."
+        echo "==============================================================="
+        ;;
+    *)
+        python3 /usr/lib/solydxk/conky/conky.py $*
+esac

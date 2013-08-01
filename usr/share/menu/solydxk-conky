@@ -1,0 +1,6 @@
+?package(solydxk-conky):needs="X11" section="Applications/System"\
+  title="SolydXK Conky" command="solydxk-conky"\
+  hints="SolydXK Conky configuration"\
+  kderemove="y"\
+  icon="/usr/share/solydxk/logo.png"
+  

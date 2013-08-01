@@ -1,0 +1,23 @@
+Source: solydxk-conky
+Section: misc
+Priority: optional
+Maintainer: Schoelje <schoelje@solydxk.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: solydxk-conky
+Architecture: all
+Maintainer: Schoelje <schoelje@solydxk.com>
+Installed-Size: 265
+Depends: conky, lm-sensors, hddtemp, net-tools, python3, python3-gi, python3-apt
+Section: misc
+Priority: optional
+Description: Conky theme for SolydXK.
+ Run "solydxk-conky" to start the GUI for each user.
+ .
+ Possible parameters:
+ * -help: the help screen.
+ * -kill: kill the conky process.
+ * -remove: remove configuration files for the current user.
+ * -start: start Conky for the current user.
+ * -restart: restart Conky for the current user.

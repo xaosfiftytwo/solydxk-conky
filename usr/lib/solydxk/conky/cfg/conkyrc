@@ -1,0 +1,73 @@
+# Conky settings #
+#temperature_unit fahrenheit
+#temperature_unit celsius
+background no
+update_interval 1
+cpu_avg_samples 2
+net_avg_samples 2
+override_utf8_locale yes
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+#imlib_cache_size 0
+
+# Window specifications #
+minimum_size 200 800
+maximum_width 200
+own_window yes
+own_window_argb_visual
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+alignment tr
+gap_x 10
+gap_y 105
+#own_window_type override
+own_window_transparent yes
+border_inner_margin 0
+border_outer_margin 0
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont Sans:size=8
+xftalpha 0.5
+#uppercase no
+default_color FFFFFF
+
+# Lua Load  #
+lua_load ~/.lua/scripts/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+${voffset 8}${color 00BFFF}${font Ubuntu:size=16}${time %A}${font}${voffset -8}${alignr 55}${color FFFFFF}${font Caviar Dreams:size=38}${time %e}${font}
+${color FFFFFF}${voffset -30}${color FFFFFF}${font Ubuntu:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font Caviar Dreams:size=20}${time %Y}${font}${color 00BFFF}${hr}
+${voffset 130}${font Ubuntu:size=14}${alignr}${pre_exec cat /etc/issue.net}
+${image /usr/share/solydxk/common/artwork/logos/128.png -p 59,109 -s 80x80}
+
+${font Sans:size=10}
+${color FFFFFF}${goto 25}${voffset 27}${cpu cpu0}%
+${color 00BFFF}${goto 25}CPU
+${color FFFFFF}${goto 50}${voffset 20}${memperc}%
+${color 00BFFF}${goto 50}RAM
+${color FFFFFF}${goto 75}${voffset 20}${fs_used_perc /}%
+${color 00BFFF}${goto 75}Disk
+# Switch 'BAT' for 'Swap', and 'battery_percent BAT0' for 'swapperc' if no battery is present (and vise versa)
+${color FFFFFF}${goto 100}${voffset 20}${swapperc}%
+${color 00BFFF}${goto 100}Swap
+# Check netwerk device to use (replace the ETH placeholder with the active network device - check ifconfig)
+${color FFFFFF}${goto 125}${voffset 20}${color FFFFFF}${downspeed [ETH]}
+${color FFFFFF}${goto 125}${color FFFFFF}${upspeed [ETH]}
+${color 00BFFF}${goto 125}Net
+${voffset 40}
+# [CORE]
+# [CPUFAN]
+# [CHAFAN]
+# [HDDTEMP]
+# [LANIP]
+# [IP]
+# [KERNEL]
+# [UP]
