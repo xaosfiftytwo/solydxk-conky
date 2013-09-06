@@ -144,8 +144,8 @@ settings_table = {
     },
     {
         -- Swap battery_percent with swapperc and visa versa
-        name='swapperc',
-        arg='',
+        name='battery_percent',
+        arg='BAT1',
         max=100,
         bg_colour=0xffffff,
         bg_alpha=0.2,

@@ -99,6 +99,10 @@ class Conky(object):
         self.chkSysCpuFan = go('chkSysCpuFan')
         self.lblSysChassisFan = go('lblSysChassisFan')
         self.chkSysChassisFan = go('chkSysChassisFan')
+        self.lblSysBattery = go('lblSysBattery')
+        self.rbtSysBattery = go('rbtSysBattery')
+        self.lblSysSwap = go('lblSysSwap')
+        self.rbtSysSwap = go('rbtSysSwap')
         self.lblSysKernel = go('lblSysKernel')
         self.chkSysKernel = go('chkSysKernel')
         self.lblSysUP = go('lblSysUP')
@@ -154,6 +158,8 @@ class Conky(object):
         self.lblSysTempUnit.set_text(_("Temperature unit"))
         self.lblSysCpuFan.set_text(_("CPU fan speed"))
         self.lblSysChassisFan.set_text(_("Chassis fan speed"))
+        self.lblSysBattery.set_text(_("Battery"))
+        self.lblSysSwap.set_text(_("Swap"))
         self.lblSysKernel.set_text(_("Kernel"))
         self.lblSysUP.set_text(_("Update Pack"))
 
@@ -324,6 +330,7 @@ class Conky(object):
         self.cmbSysTempUnit.set_active(0)
         self.chkSysCpuFan.set_active(True)
         self.chkSysChassisFan.set_active(True)
+        self.rbtSysBattery.set_active(True)
         self.chkSysKernel.set_active(True)
         self.chkSysUP.set_active(True)
 
@@ -479,12 +486,13 @@ class Conky(object):
         self.log.write(_("Save upload speed: %(ul)s" % {'ul': ul}), 'conky.saveSettings', 'debug')
 
         # Battery / Swap
-        bat = '/proc/acpi/battery/BAT0/state'
-        if exists(bat):
-            self.log.write(_("Battery detected: replace Swap with Battery index"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('\$\{swapperc\}', '${battery_percent BAT0}', self.conkyrc)
-            functions.replaceStringInFile('\}Swap', '}BAT', self.conkyrc)
-            functions.replaceStringInFile("'swapperc'", "'battery_percent'", self.lua)
+        #bat = '/proc/acpi/battery/BAT0/state'
+        if self.rbtSysSwap.get_active():
+            self.log.write(_("Swap seletected: replace Battery with Swap index"), 'conky.saveSettings', 'debug')
+            functions.replaceStringInFile('${battery_percent BAT1}', '\$\{swapperc\}', self.conkyrc)
+            functions.replaceStringInFile('}BAT', '\}Swap', self.conkyrc)
+            functions.replaceStringInFile("'battery_percent'", "'swapperc'", self.lua)
+            functions.replaceStringInFile("'BAT1'", "''", self.lua)
 
         # Get selecte temperature unit, and get sensors data accordingly
         tempUnit = self.getActiveComboValue(self.cmbSysTempUnit)[1][0:1].lower()

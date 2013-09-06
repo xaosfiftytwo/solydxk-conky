@@ -132,8 +132,9 @@ functions.replaceStringInFile('\[ETH\]', interface, conkyrc)
 functions.replaceStringInFile('\[ETH\]', interface, lua)
 
 # Battery / Swap
-bat = '/proc/acpi/battery/BAT0/state'
-if os.path.exists(bat):
+bat_acpi = '/proc/acpi/battery/BAT*'
+bat_sys = '/sys/class/power_supply/BAT*'
+if not os.path.exists(bat):
     functions.log("Battery detected: replace Swap with Battery index")
     functions.replaceStringInFile('\$\{swapperc\}', '${battery_percent BAT0}', conkyrc)
     functions.replaceStringInFile('\}Swap', '}BAT', conkyrc)
