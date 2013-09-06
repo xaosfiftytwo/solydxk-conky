@@ -489,8 +489,8 @@ class Conky(object):
         #bat = '/proc/acpi/battery/BAT0/state'
         if self.rbtSysSwap.get_active():
             self.log.write(_("Swap seletected: replace Battery with Swap index"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('${battery_percent BAT1}', '\$\{swapperc\}', self.conkyrc)
-            functions.replaceStringInFile('}BAT', '\}Swap', self.conkyrc)
+            functions.replaceStringInFile('\$\{battery_percent BAT1\}', '\$\{swapperc\}', self.conkyrc)
+            functions.replaceStringInFile('\}BAT', '\}Swap', self.conkyrc)
             functions.replaceStringInFile("'battery_percent'", "'swapperc'", self.lua)
             functions.replaceStringInFile("'BAT1'", "''", self.lua)
 
