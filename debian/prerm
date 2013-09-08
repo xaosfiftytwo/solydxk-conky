@@ -5,3 +5,19 @@ set -e
 if [ -d /usr/lib/solydxk-conky ]; then
   rm -f /usr/lib//solydxk-conky/*.pyc
 fi
+
+USERS=$(cat /etc/passwd | grep bash | grep home | cut -d':' -f 1)
+for USER in $USERS; do
+  if [ -e "$USER/.config/autostart/conky.desktop" ]; then
+    rm "$USER/.config/autostart/conky.desktop"
+  fi
+  if [ -e "$USER/.lua/scripts/clock_rings.lua" ]; then
+    rm "$USER/.lua/scripts/clock_rings.lua"
+  fi
+  if [ -e "$USER/.conky-start" ]; then
+    rm "$USER/.conky-start"
+  fi
+  if [ -e "$USER/.conkyrc" ]; then
+    rm "$USER/.conkyrc"
+  fi
+done

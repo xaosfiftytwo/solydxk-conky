@@ -1,3 +1,9 @@
+solydxk-conky (0.9.2) debian; urgency=low
+
+  * Cleanup user configuration when removing solydxk-conky
+
+ -- Schoelje <schoelje@solydxk.com>  Mon, 02 Sep 2013 09:00:00 +0100
+ 
 solydxk-conky (0.9.1) debian; urgency=low
 
   * Changed the startup command
