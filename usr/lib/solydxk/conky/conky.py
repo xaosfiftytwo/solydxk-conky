@@ -314,7 +314,10 @@ class Conky(object):
         self.cmbPrefSleep.set_active(2)
         self.cmbPrefAlign.set_active(0)
         self.chkPrefAutostart.set_active(True)
-        self.txtNetwInterface.set_text(functions.getNetworkInterface())
+        eth = functions.getNetworkInterface()
+        if eth is None:
+            eth = 'eth0'
+        self.txtNetwInterface.set_text(eth)
         self.txtNetwDownSpeed.set_text(self.defaultSpeed)
         self.txtNetwUpSpeed.set_text(self.defaultSpeed)
         self.chkNetwLanIP.set_active(True)
@@ -374,7 +377,10 @@ class Conky(object):
                     self.log.write(_("Current network interface: %(interface)s" % {'interface': eth}), 'conky.getSettings', 'debug')
                     self.txtNetwInterface.set_text(eth)
                 else:
-                    self.txtNetwInterface.set_text(functions.getNetworkInterface())
+                    eth = functions.getNetworkInterface()
+                    if eth is None:
+                        eth = 'eth0'
+                    self.txtNetwInterface.set_text()
 
                 dl = functions.findRegExpInString('downspeedf.*\n.*\n,*[a-z\=\s]*(\d*)', luaCont, 1)
                 if dl:

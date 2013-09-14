@@ -682,7 +682,7 @@ def getNetworkInterface():
     ifList = ec.run(cmd)
     for line in reversed(ifList):
         if not found:
-            reObj = re.search('inet.*bcast.*mask.*', line, re.I)
+            reObj = re.search('inet.*bcast.*', line, re.I)
             if reObj:
                 found = True
         else:

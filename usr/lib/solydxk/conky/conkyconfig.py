@@ -124,12 +124,12 @@ functions.replaceStringInFile('\[USPEED\]', str(dload), lua)
 
 # Network interface
 functions.log('=============================================')
-interface = functions.getNetworkInterface()
+eth = functions.getNetworkInterface()
 functions.log('=============================================')
-if not interface:
-    interface = 'eth0'
-functions.replaceStringInFile('\[ETH\]', interface, conkyrc)
-functions.replaceStringInFile('\[ETH\]', interface, lua)
+if eth is None:
+    eth = 'eth0'
+functions.replaceStringInFile('\[ETH\]', eth, conkyrc)
+functions.replaceStringInFile('\[ETH\]', eth, lua)
 
 # Battery / Swap
 bat = '/proc/acpi/battery/BAT0/state'
