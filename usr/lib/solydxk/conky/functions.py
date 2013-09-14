@@ -13,8 +13,8 @@ try:
     #import io
     import fnmatch
     import urllib.request, urllib.error, urllib.parse
-    import gettext
-    from os.path import join, exists, abspath
+    #import gettext
+    from os.path import join, exists, abspath, splitext
     from datetime import datetime
     from execcmd import ExecCmd
     from gi.repository import Gtk
@@ -163,18 +163,21 @@ def getFilesAndFoldersRecursively(directoryPath, files=True, dirs=True):
 def replaceStringInFile(findStringOrRegExp, replString, filePath):
     replString = str(replString)
     if exists(filePath):
-        tmpFile = '%s.tmp' % filePath
-        # Get the data
-        f = open(filePath)
-        data = f.read()
-        f.close()
-        # Write the temporary file with new data
-        tmp = open(tmpFile, "w")
-        tmp.write(re.sub(findStringOrRegExp, replString, data))
-        tmp.close()
-        # Overwrite the original with the temporary file
-        shutil.copy(tmpFile, filePath)
-        os.remove(tmpFile)
+        try:
+            tmpFile = '%s.tmp' % filePath
+            # Get the data
+            f = open(filePath)
+            data = f.read()
+            f.close()
+            # Write the temporary file with new data
+            tmp = open(tmpFile, "w")
+            tmp.write(re.sub(findStringOrRegExp, replString, data))
+            tmp.close()
+            # Overwrite the original with the temporary file
+            shutil.copy(tmpFile, filePath)
+            os.remove(tmpFile)
+        except:
+            print("Cannot replace string: %(findStringOrRegExp)s with %(replString)s in %(filePath)s" % { "findStringOrRegExp": findStringOrRegExp, "replString": replString, "filePath": filePath })
 
 
 # Create a backup file with date/time
@@ -304,8 +307,8 @@ def getDistribution(returnBaseDistribution=True):
         elif 'arm' in sysInfo:
             distribution = 'arm'
     else:
-        if exists('/etc/issue.net'):
-            lst = ec.run('cat /etc/issue.net', False)
+        if exists('/etc/solydxk/info'):
+            lst = ec.run("cat /etc/solydxk/info | grep EDITION | cut -d'=' -f 2", False)
             if lst:
                 distribution = lst[0]
     return distribution
