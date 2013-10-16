@@ -1,7 +1,16 @@
-solydxk-conky (0.9.5) debian; urgency=low
+solydxk-conky (0.9.8) debian; urgency=low
+
+  * Added missing dependency gir1.2-gtk-3.0
+
+ -- Schoelje <schoelje@solydxk.com>  Thu, 10 Oct 2013 20:00:00 +0100
+
+solydxk-conky (0.9.6) debian; urgency=low
 
   * Merged pull request 1 by Litux1516:
     Switch between battery and swap
+  * Marked these files as conffiles:
+    /usr/lib/solydxk/conky/cfg/conkyrc
+    /usr/lib/solydxk/conky/cfg/clock_rings.lua
 
  -- Schoelje <schoelje@solydxk.com>  Sat, 14 Sep 2013 14:00:00 +0100
 

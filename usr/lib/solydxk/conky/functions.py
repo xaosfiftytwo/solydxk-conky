@@ -1,21 +1,23 @@
 #! /usr/bin/env python3
+#-*- coding: utf-8 -*-
 
 try:
     import os
+    import pwd
     import shutil
     import re
     import operator
     import apt
-    import pwd
-    import grp
+    import apt_pkg
     import stat
-    #import pycurl
-    #import io
     import fnmatch
-    import urllib.request, urllib.error, urllib.parse
-    #import gettext
+    import urllib.request
+    import urllib.error
+    import urllib.parse
     from os.path import join, exists, abspath, splitext
     from datetime import datetime
+    import calendar
+    import collections
     from execcmd import ExecCmd
     from gi.repository import Gtk
 except Exception as detail:
@@ -23,52 +25,33 @@ except Exception as detail:
     exit(1)
 
 
+# Init
 packageStatus = ['installed', 'notinstalled', 'uninstallable']
-
-# Execute command object
 ec = ExecCmd()
-
-# i18n: http://docs.python.org/2/library/gettext.html
-#t = gettext.translation("solydxk-conky", "/usr/share/locale")
-#_ = t.lgettext
+cache = apt.Cache()
 
 
 # General ================================================
 
 def locate(pattern, root=os.curdir, locateDirsOnly=False):
-    '''Locate all files matching supplied filename pattern in and below
-    supplied root directory.'''
+    ret = []
     for path, dirs, files in os.walk(abspath(root)):
         if locateDirsOnly:
             obj = dirs
         else:
             obj = files
         for objname in fnmatch.filter(obj, pattern):
-            yield join(path, objname)
-
-# Get a list with users, home directory, and a list with groups of that user
-def getUsers(homeUsers=True):
-    users = []
-    userGroups = []
-    groups = grp.getgrall()
-    for p in pwd.getpwall():
-        for g in groups:
-            for u in g.gr_mem:
-                if u == p.pw_name:
-                    userGroups.append(g.gr_name)
-        if homeUsers:
-            if p.pw_uid > 500 and p.pw_uid < 1500:
-                users.append([p.pw_name, p.pw_dir, userGroups])
-        else:
-            users.append([p.pw_name, p.pw_dir, userGroups])
-    return users
+            ret.append(join(path, objname))
+    return ret
 
 
 # Get the login name of the current user
 def getUserLoginName():
-    p = os.popen('logname','r')
+    p = os.popen('logname', 'r')
     userName = p.readline().strip()
     p.close()
+    if userName == "":
+        userName = pwd.getpwuid(os.getuid()).pw_name
     return userName
 
 
@@ -101,9 +84,28 @@ def strToNumber(stringnr, toInt=False):
     return nr
 
 
+def getMonthsList():
+    months = []
+    for x in range(1, 13):
+        months.append(datetime(1970, x, 1).strftime('%B'))
+    return months
+
+
+def getDaysInMonth(month=None, year=None):
+    if month is None:
+        month = datetime.now().month
+    if year is None:
+        year = datetime.now().year
+    return calendar.monthrange(year, month)[1]
+
+
 # Check if parameter is a list
 def isList(lst):
     return isinstance(lst, list)
+
+
+def areListsEqual(lst1, lst2):
+    return collections.Counter(lst1) == collections.Counter(lst2)
 
 
 # Check if parameter is a list containing lists
@@ -234,7 +236,7 @@ def getLinuxHeadersAndImage(getLatest=False, includeLatestRegExp='', excludeLate
     returnList = []
     lhList = []
     if getLatest:
-        lst = ec.run('aptitude search linux-headers', False)
+        lst = ec.run('aptitude search -w 150 linux-headers', False)
         for item in lst:
             lhMatch = re.search('linux-headers-\d+\.[a-zA-Z0-9-\.]*', item)
             if lhMatch:
@@ -422,19 +424,18 @@ def getResolutions(minRes='', maxRes='', reverseOrder=False, getVesaResolutions=
 def getPackageStatus(packageName):
     status = ''
     try:
-        cache = apt.Cache()
         pkg = cache[packageName]
-        if pkg.installed is not None:
+        if pkg.is_installed and pkg._pkg.current_state == apt_pkg.CURSTATE_INSTALLED:
             # Package is installed
             status = packageStatus[0]
-        elif pkg.candidate is not None:
+        elif not pkg.is_installed and pkg._pkg.current_state == apt_pkg.CURSTATE_NOT_INSTALLED:
             # Package is not installed
             status = packageStatus[1]
         else:
-            # Package is not found: uninstallable
+            # If something went wrong: assume that package is uninstallable
             status = packageStatus[2]
     except:
-        # If something went wrong: assume that package is uninstallable
+        # Package is not found: uninstallable
         status = packageStatus[2]
 
     return status
@@ -444,28 +445,30 @@ def getPackageStatus(packageName):
 def isPackageInstalled(packageName, alsoCheckVersion=True):
     isInstalled = False
     try:
-        cmd = 'dpkg-query -l %s | grep ^i' % packageName
-        if '*' in packageName:
-            cmd = 'aptitude search %s | grep ^i' % packageName
-        pckList = ec.run(cmd, False)
-        for line in pckList:
-            matchObj = re.search('([a-z]+)\s+([a-z0-9\-_\.]*)', line)
-            if matchObj:
-                if matchObj.group(1)[:1] == 'i':
-                    if alsoCheckVersion:
-                        cache = apt.Cache()
-                        pkg = cache[matchObj.group(2)]
-                        if pkg.installed.version == pkg.candidate.version:
-                            isInstalled = True
-                            break
-                    else:
-                        isInstalled = True
-                        break
-            if isInstalled:
-                break
+        pkg = cache[packageName]
+        if (not pkg.is_installed or
+            pkg._pkg.current_state != apt_pkg.CURSTATE_INSTALLED or
+            cache._depcache.broken_count > 0):
+            isInstalled = False
+        elif alsoCheckVersion:
+            if pkg.installed.version == pkg.candidate.version:
+                isInstalled = True
+        else:
+            isInstalled = True
     except:
         pass
     return isInstalled
+
+
+# Check if a package exists
+def doesPackageExist(packageName):
+    exists = False
+    try:
+        cache[packageName]
+        exists = True
+    except:
+        pass
+    return exists
 
 
 # List all dependencies of a package
@@ -483,12 +486,11 @@ def getPackageDependencies(packageName, reverseDepends=False):
                             if matchObj.group(1) != '':
                                 retList.append(matchObj.group(1))
         else:
-            cache = apt.Cache()
             pkg = cache[packageName]
-            for basedeps in pkg.installed.dependencies:
+            deps = pkg.candidate.get_dependencies("Depends")
+            for basedeps in deps:
                 for dep in basedeps:
-                    if dep.version != '':
-                        retList.append(dep.name)
+                    retList.append(dep.name)
     except:
         pass
     return retList

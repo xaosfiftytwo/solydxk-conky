@@ -9,7 +9,7 @@ Package: solydxk-conky
 Architecture: all
 Maintainer: Schoelje <schoelje@solydxk.com>
 Installed-Size: 265
-Depends: conky, lm-sensors, hddtemp, net-tools, python3, python3-gi, python3-apt, acpi
+Depends: conky, lm-sensors, hddtemp, net-tools, python3, python3-gi, python3-apt, acpi, gir1.2-gtk-3.0
 Section: misc
 Priority: optional
 Description: Conky theme for SolydXK.
