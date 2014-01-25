@@ -510,11 +510,9 @@
                                         <child>
                                           <object class="GtkButton" id="btnPrefActionApply">
                                             <property name="label" translatable="yes">Apply</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
-                                            <property name="use_action_appearance">False</property>
                                             <signal name="clicked" handler="on_btnPrefActionApply_clicked" swapped="no"/>
                                           </object>
                                           <packing>
@@ -540,11 +538,9 @@
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkPrefAutostart">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -915,11 +911,9 @@ with speed.net (in Kilobytes).</property>
                                         <child>
                                           <object class="GtkButton" id="btnNetspeed">
                                             <property name="label" translatable="yes">speedtest.net</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
-                                            <property name="use_action_appearance">False</property>
                                             <signal name="clicked" handler="on_btnNetspeed_clicked" swapped="no"/>
                                           </object>
                                           <packing>
@@ -1002,11 +996,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkNetwLanIP">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1019,11 +1011,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkNetwIP">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1253,11 +1243,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysCores">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1270,11 +1258,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysHd">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1287,11 +1273,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysCpuFan">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1304,11 +1288,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysChassisFan">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1321,11 +1303,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysKernel">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1338,11 +1318,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkCheckButton" id="chkSysUP">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
                                           </object>
@@ -1461,87 +1439,14 @@ with speed.net (in Kilobytes).</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
                                           <object class="GtkRadioButton" id="rbtSysBattery">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="active">True</property>
                                             <property name="draw_indicator">True</property>
+                                            <property name="group">rbtSysSwap</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
@@ -1552,11 +1457,9 @@ with speed.net (in Kilobytes).</property>
                                         </child>
                                         <child>
                                           <object class="GtkRadioButton" id="rbtSysSwap">
-                                            <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
-                                            <property name="use_action_appearance">False</property>
                                             <property name="xalign">0</property>
                                             <property name="active">True</property>
                                             <property name="draw_indicator">True</property>
@@ -1568,6 +1471,78 @@ with speed.net (in Kilobytes).</property>
                                             <property name="width">1</property>
                                             <property name="height">1</property>
                                           </packing>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
                                         </child>
                                       </object>
                                       <packing>
@@ -1644,13 +1619,11 @@ with speed.net (in Kilobytes).</property>
                                 <child>
                                   <object class="GtkButton" id="btnSave">
                                     <property name="label" translatable="yes">Save and close</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="height_request">30</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="halign">end</property>
-                                    <property name="use_action_appearance">False</property>
                                     <signal name="clicked" handler="on_btnSave_clicked" swapped="no"/>
                                   </object>
                                   <packing>

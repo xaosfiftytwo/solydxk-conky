@@ -1,3 +1,9 @@
+solydxk-conky (0.9.9) debian; urgency=low
+
+  * Resolved some minor bugs
+
+ -- Schoelje <schoelje@solydxk.com>  Thu, 05 Nov 2013 16:00:00 +0100
+
 solydxk-conky (0.9.8) debian; urgency=low
 
   * Added missing dependency gir1.2-gtk-3.0

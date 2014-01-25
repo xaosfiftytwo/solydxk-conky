@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 # sudo apt-get install python3-gi
 # from gi.repository import Gtk, GdkPixbuf, GObject, Pango, Gdk
@@ -403,6 +404,14 @@ class Conky(object):
                 else:
                     self.txtNetwUpSpeed.set_text(self.defaultSpeed)
 
+                bat = functions.findRegExpInString("'battery_percent'", luaCont, 0)
+                if bat:
+                    self.log.write(_("Battery selected"), 'conky.getSettings', 'debug')
+                    self.rbtSysBattery.set_active(True)
+                else:
+                    self.log.write(_("Swap selected"), 'conky.getSettings', 'debug')
+                    self.rbtSysSwap.set_active(True)
+
                 if functions.findRegExpInString('<inet', conkyrcCont):
                     self.log.write(_("Check LAN IP"), 'conky.getSettings', 'debug')
                     self.chkNetwLanIP.set_active(True)
@@ -434,7 +443,7 @@ class Conky(object):
                 if functions.findRegExpInString('kernel', conkyrcCont, 0, True):
                     self.log.write(_("Check kernel"), 'conky.getSettings', 'debug')
                     self.chkSysKernel.set_active(True)
-                if functions.findRegExpInString('packlevel', conkyrcCont):
+                if functions.findRegExpInString('up\.hist', conkyrcCont):
                     self.log.write(_("Check Update Pack"), 'conky.getSettings', 'debug')
                     self.chkSysUP.set_active(True)
         else:
@@ -498,7 +507,13 @@ class Conky(object):
             functions.replaceStringInFile('\$\{battery_percent BAT1\}', '${swapperc}', self.conkyrc)
             functions.replaceStringInFile('\}BAT', '}Swap', self.conkyrc)
             functions.replaceStringInFile("'battery_percent'", "'swapperc'", self.lua)
-            functions.replaceStringInFile("'BAT1'", "''", self.lua)
+            functions.replaceStringInFile("'BAT1'", "'SWAP'", self.lua)
+        elif self.rbtSysBattery.get_active():
+            self.log.write(_("Battery seletected: replace Swap with Battery index"), 'conky.saveSettings', 'debug')
+            functions.replaceStringInFile('${swapperc}', '\$\{battery_percent BAT1\}', self.conkyrc)
+            functions.replaceStringInFile('}Swap', '\}BAT', self.conkyrc)
+            functions.replaceStringInFile("'swapperc'", "'battery_percent'", self.lua)
+            functions.replaceStringInFile("'SWAP'", "'BAT1'", self.lua)
 
         # Get selecte temperature unit, and get sensors data accordingly
         tempUnit = self.getActiveComboValue(self.cmbSysTempUnit)[1][0:1].lower()
