@@ -110,7 +110,7 @@ class Conky(object):
         self.chkSysUP = go('chkSysUP')
 
         # Read from config file
-        self.cfg = Config(join(self.scriptDir, 'conky.conf'))
+        self.cfg = Config(join(self.scriptDir, 'cfg/conky.conf'))
         self.clrTitleFg = Gdk.color_parse(self.cfg.getValue('COLORS', 'title_fg'))
         self.clrTitleBg = Gdk.color_parse(self.cfg.getValue('COLORS', 'title_bg'))
         self.clrMenuSelect = Gdk.color_parse(self.cfg.getValue('COLORS', 'menu_select'))
