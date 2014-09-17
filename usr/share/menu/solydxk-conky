@@ -2,5 +2,5 @@
   title="SolydXK Conky" command="solydxk-conky"\
   hints="SolydXK Conky configuration"\
   kderemove="y"\
-  icon="/usr/share/solydxk/logo.png"
+  icon="/usr/share/pixmaps/conky-manager.png"
   

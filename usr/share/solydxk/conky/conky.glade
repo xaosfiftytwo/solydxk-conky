@@ -1,184 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
+  <object class="GtkListStore" id="lsAction">
+    <columns>
+      <!-- column-name action -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsAlign">
+    <columns>
+      <!-- column-name align -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsSleep">
+    <columns>
+      <!-- column-name seconds -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsTemp">
+    <columns>
+      <!-- column-name temp -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="conkyWindow">
+    <property name="width_request">700</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Welcome</property>
     <property name="role">conky</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
-    <property name="icon">logo.png</property>
+    <property name="icon_name">conky-manager</property>
     <signal name="destroy" handler="on_conkyWindow_destroy" swapped="no"/>
     <child>
       <object class="GtkVBox" id="box1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkEventBox" id="ebTitle">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkHBox" id="box12">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkImage" id="image1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xpad">5</property>
-                    <property name="ypad">2</property>
-                    <property name="pixbuf">logo.png</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="lblTitle">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="xpad">10</property>
-                    <property name="ypad">15</property>
-                    <property name="label" translatable="yes">SolydXK Conky</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                      <attribute name="size" value="24000"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkImage" id="sep11">
-            <property name="width_request">5</property>
-            <property name="height_request">5</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="pixbuf">empty.png</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkHBox" id="box2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEventBox" id="ebMenu">
+              <object class="GtkFrame" id="frmMenu">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="label_yalign">0</property>
+                <property name="shadow_type">out</property>
                 <child>
-                  <object class="GtkHBox" id="boxMenu">
+                  <object class="GtkAlignment" id="alignment2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="top_padding">5</property>
+                    <property name="bottom_padding">5</property>
+                    <property name="left_padding">5</property>
+                    <property name="right_padding">5</property>
                     <child>
-                      <object class="GtkImage" id="sep17">
-                        <property name="width_request">5</property>
-                        <property name="height_request">5</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="pixbuf">empty.png</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkVBox" id="box3">
+                      <object class="GtkVBox" id="box7">
+                        <property name="width_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkEventBox" id="ebMenuPreferences">
+                          <object class="GtkButton" id="btnPreferences">
+                            <property name="label" translatable="yes">Preferences</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="events">GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK</property>
-                            <signal name="button-release-event" handler="on_ebMenuPreferences_button_release_event" swapped="no"/>
-                            <signal name="leave-notify-event" handler="on_ebMenuPreferences_leave_notify_event" swapped="no"/>
-                            <signal name="enter-notify-event" handler="on_ebMenuPreferences_enter_notify_event" swapped="no"/>
-                            <child>
-                              <object class="GtkHBox" id="boxMenuWelcome">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <child>
-                                  <object class="GtkImage" id="imgMenuWelcome">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">preferences.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep1">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="lblMenuPreferences">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Preferences</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="size" value="14000"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep13">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="yalign">0.4699999988079071</property>
+                            <signal name="clicked" handler="on_btnPreferences_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -188,76 +81,13 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEventBox" id="ebMenuNetwork">
+                          <object class="GtkButton" id="btnNetwork">
+                            <property name="label" translatable="yes">Network</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="events">GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK</property>
-                            <signal name="button-release-event" handler="on_ebMenuNetwork_button_release_event" swapped="no"/>
-                            <signal name="enter-notify-event" handler="on_ebMenuNetwork_enter_notify_event" swapped="no"/>
-                            <signal name="leave-notify-event" handler="on_ebMenuNetwork_leave_notify_event" swapped="no"/>
-                            <child>
-                              <object class="GtkHBox" id="boxMenuDrivers">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <child>
-                                  <object class="GtkImage" id="imgMenuDrivers">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">network.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep2">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="lblMenuNetwork">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Network</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="size" value="14000"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep14">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="xalign">0.4699999988079071</property>
+                            <signal name="clicked" handler="on_btnNetwork_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -267,76 +97,12 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEventBox" id="ebMenuSystem">
+                          <object class="GtkButton" id="btnSystem">
+                            <property name="label" translatable="yes">System</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="events">GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK</property>
-                            <signal name="button-release-event" handler="on_ebMenuSystem_button_release_event" swapped="no"/>
-                            <signal name="enter-notify-event" handler="on_ebMenuSystem_enter_notify_event" swapped="no"/>
-                            <signal name="leave-notify-event" handler="on_ebMenuSystem_leave_notify_event" swapped="no"/>
-                            <child>
-                              <object class="GtkHBox" id="boxMenuCommunity">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <child>
-                                  <object class="GtkImage" id="imgMenuCommunity">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">system.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep3">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="lblMenuSystem">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">System</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="size" value="14000"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="sep19">
-                                    <property name="width_request">5</property>
-                                    <property name="height_request">5</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="pixbuf">empty.png</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">3</property>
-                                  </packing>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="on_btnSystem_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -346,12 +112,9 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkImage" id="sep20">
-                            <property name="width_request">10</property>
-                            <property name="height_request">10</property>
+                          <object class="GtkLabel" id="lblSep1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="pixbuf">empty.png</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -359,61 +122,18 @@
                             <property name="position">3</property>
                           </packing>
                         </child>
-                        <child>
-                          <object class="GtkImage" id="sep12">
-                            <property name="width_request">5</property>
-                            <property name="height_request">5</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="pixbuf">empty.png</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">5</property>
-                          </packing>
-                        </child>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkImage" id="sep18">
-                        <property name="width_request">5</property>
-                        <property name="height_request">5</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="pixbuf">empty.png</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
                     </child>
                   </object>
+                </child>
+                <child type="label_item">
+                  <placeholder/>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkImage" id="sep21">
-                <property name="width_request">5</property>
-                <property name="height_request">5</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="pixbuf">empty.png</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
+                <property name="padding">2</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -503,8 +223,6 @@
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -518,8 +236,6 @@
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -532,8 +248,6 @@
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -547,8 +261,6 @@
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -561,8 +273,6 @@
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -576,8 +286,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -595,8 +303,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -609,8 +315,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -623,8 +327,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -637,8 +339,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -656,8 +356,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -671,8 +369,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -686,8 +382,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">3</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -701,8 +395,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -716,8 +408,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -731,8 +421,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -745,8 +433,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -832,8 +518,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -846,8 +530,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -860,8 +542,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -874,8 +554,6 @@ Default is 20 seconds.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -884,13 +562,10 @@ Default is 20 seconds.</property>
                                             <property name="can_focus">True</property>
                                             <property name="max_length">10</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -904,8 +579,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -919,8 +592,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -933,8 +604,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -943,13 +612,10 @@ with speed.net (in Kilobytes).</property>
                                             <property name="can_focus">True</property>
                                             <property name="max_length">10</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -962,8 +628,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -976,8 +640,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -990,8 +652,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1005,8 +665,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1020,8 +678,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1035,8 +691,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1050,8 +704,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">3</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1065,8 +717,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1080,8 +730,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1166,8 +814,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1181,8 +827,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1195,8 +839,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1209,8 +851,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1223,8 +863,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1237,8 +875,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">8</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1252,8 +888,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1267,8 +901,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1282,8 +914,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1297,8 +927,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1312,8 +940,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1327,8 +953,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">8</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1342,8 +966,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1357,8 +979,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">3</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1372,8 +992,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1392,8 +1010,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1406,8 +1022,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">4</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1420,8 +1034,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1434,8 +1046,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1451,8 +1061,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1468,8 +1076,6 @@ with speed.net (in Kilobytes).</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1657,6 +1263,7 @@ with speed.net (in Kilobytes).</property>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
+                <property name="padding">2</property>
                 <property name="position">2</property>
               </packing>
             </child>
@@ -1695,29 +1302,5 @@ with speed.net (in Kilobytes).</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="lsAction">
-    <columns>
-      <!-- column-name action -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsAlign">
-    <columns>
-      <!-- column-name align -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsSleep">
-    <columns>
-      <!-- column-name seconds -->
-      <column type="gint"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsTemp">
-    <columns>
-      <!-- column-name temp -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>

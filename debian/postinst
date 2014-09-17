@@ -22,7 +22,8 @@ case "$1" in
 	if [ -e /usr/sbin/hddtemp ]; then
 	    chmod +s /usr/sbin/hddtemp
 	fi
-	
+	chmod -R 777 "/usr/lib/solydxk/conky/cfg"
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

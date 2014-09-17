@@ -3,7 +3,7 @@
 
 # sudo apt-get install python3-gi
 # from gi.repository import Gtk, GdkPixbuf, GObject, Pango, Gdk
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 import os
 import functions
 import gettext
@@ -40,17 +40,11 @@ class Conky(object):
 
         go = self.builder.get_object
         self.window = go('conkyWindow')
-        self.ebTitle = go('ebTitle')
-        self.lblTitle = go('lblTitle')
         self.lblMenuTitle = go('lblMenuTitle')
         self.statusbar = go('statusbar')
-        self.ebMenu = go('ebMenu')
-        self.ebMenuPreferences = go('ebMenuPreferences')
-        self.lblMenuPreferences = go('lblMenuPreferences')
-        self.ebMenuNetwork = go('ebMenuNetwork')
-        self.lblMenuNetwork = go('lblMenuNetwork')
-        self.ebMenuSystem = go('ebMenuSystem')
-        self.lblMenuSystem = go('lblMenuSystem')
+        self.btnPreferences = go('btnPreferences')
+        self.btnNetwork = go('btnNetwork')
+        self.btnSystem = go('btnSystem')
         self.nbConky = go('nbConky')
         self.btnSave = go('btnSave')
 
@@ -109,60 +103,39 @@ class Conky(object):
         self.lblSysUP = go('lblSysUP')
         self.chkSysUP = go('chkSysUP')
 
-        # Read from config file
-        self.cfg = Config(join(self.scriptDir, 'cfg/conky.conf'))
-        self.clrTitleFg = Gdk.color_parse(self.cfg.getValue('COLORS', 'title_fg'))
-        self.clrTitleBg = Gdk.color_parse(self.cfg.getValue('COLORS', 'title_bg'))
-        self.clrMenuSelect = Gdk.color_parse(self.cfg.getValue('COLORS', 'menu_select'))
-        self.clrMenuHover = Gdk.color_parse(self.cfg.getValue('COLORS', 'menu_hover'))
-        self.clrMenuBg = Gdk.color_parse(self.cfg.getValue('COLORS', 'menu_bg'))
-
-        # Set background and forground colors
-        self.ebTitle.modify_bg(Gtk.StateType.NORMAL, self.clrTitleBg)
-        self.lblTitle.modify_fg(Gtk.StateType.NORMAL, self.clrTitleFg)
-        self.lblMenuPreferences.modify_fg(Gtk.StateType.NORMAL, self.clrTitleBg)
-        self.lblMenuNetwork.modify_fg(Gtk.StateType.NORMAL, self.clrTitleBg)
-        self.lblMenuSystem.modify_fg(Gtk.StateType.NORMAL, self.clrTitleBg)
-        self.lblMenuTitle.modify_fg(Gtk.StateType.NORMAL, self.clrTitleBg)
-        self.ebMenu.modify_bg(Gtk.StateType.NORMAL, self.clrMenuBg)
-        self.ebMenuPreferences.modify_bg(Gtk.StateType.NORMAL, self.clrMenuBg)
-        self.ebMenuNetwork.modify_bg(Gtk.StateType.NORMAL, self.clrMenuBg)
-        self.ebMenuSystem.modify_bg(Gtk.StateType.NORMAL, self.clrMenuBg)
-
         # Translations
         self.window.set_title(_("SolydXK Conky"))
-        self.lblTitle.set_text(self.window.get_title())
-        self.lblMenuPreferences.set_text(_("Preferences"))
-        self.lblMenuNetwork.set_text(_("Network"))
-        self.lblMenuSystem.set_text(_("System"))
+        self.btnPreferences.set_label(_("Preferences"))
+        self.btnNetwork.set_label(_("Network"))
+        self.btnSystem.set_label(_("System"))
         self.btnSave.set_label(_("Save"))
-        self.lblPrefAction.set_text(_("Action"))
+        self.lblPrefAction.set_label(_("Action"))
         self.btnPrefActionApply.set_label(_("Apply"))
-        self.lblPrefAutostart.set_text(_("Autostart"))
-        self.lblPrefAutostartText.set_text(_("Autostart Conky on login."))
-        self.lblPrefSleep.set_text(_("Sleep"))
-        self.lblPrefSleepText.set_text(_("Seconds to wait before starting Conky.\nDefault is 20 seconds."))
-        self.lblPrefAlign.set_text(_("Align"))
-        self.lblPrefAlignText.set_text(_("Conky alignment on the desktop."))
-        self.lblNetwInterface.set_text(_("Interface"))
-        self.lblNetwInterfaceText.set_text(_("Auto detected (use ifconfig)."))
-        self.lblNetwDownSpeed.set_text(_("Download speed"))
-        self.lblNetwSpeedText.set_text(_("Test your download and upload speed\nwith speed.net (in Kilobytes)."))
-        self.lblNetwUpSpeed.set_text(_("Upload speed"))
+        self.lblPrefAutostart.set_label(_("Autostart"))
+        self.lblPrefAutostartText.set_label(_("Autostart Conky on login."))
+        self.lblPrefSleep.set_label(_("Sleep"))
+        self.lblPrefSleepText.set_label(_("Seconds to wait before starting Conky.\nDefault is 20 seconds."))
+        self.lblPrefAlign.set_label(_("Align"))
+        self.lblPrefAlignText.set_label(_("Conky alignment on the desktop."))
+        self.lblNetwInterface.set_label(_("Interface"))
+        self.lblNetwInterfaceText.set_label(_("Auto detected (use ifconfig)."))
+        self.lblNetwDownSpeed.set_label(_("Download speed"))
+        self.lblNetwSpeedText.set_label(_("Test your download and upload speed\nwith speed.net (in Kilobytes)."))
+        self.lblNetwUpSpeed.set_label(_("Upload speed"))
         self.btnNetspeed.set_label(_("speedtest.net"))
-        self.lblNetwLanIP.set_text(_("LAN IP"))
-        self.lblNetwLanIPText.set_text(_("Check to show these items."))
-        self.lblNetwIP.set_text(_("IP"))
-        self.lblSysCoresTemp.set_text(_("Core temperature"))
-        self.lblSysCoresTempText.set_text(_("Check to show these items."))
-        self.lblSysHdTemp.set_text(_("HD temperature"))
-        self.lblSysTempUnit.set_text(_("Temperature unit"))
-        self.lblSysCpuFan.set_text(_("CPU fan speed"))
-        self.lblSysChassisFan.set_text(_("Chassis fan speed"))
-        self.lblSysBattery.set_text(_("Battery"))
-        self.lblSysSwap.set_text(_("Swap"))
-        self.lblSysKernel.set_text(_("Kernel"))
-        self.lblSysUP.set_text(_("Update Pack"))
+        self.lblNetwLanIP.set_label(_("LAN IP"))
+        self.lblNetwLanIPText.set_label(_("Check to show these items."))
+        self.lblNetwIP.set_label(_("IP"))
+        self.lblSysCoresTemp.set_label(_("Core temperature"))
+        self.lblSysCoresTempText.set_label(_("Check to show these items."))
+        self.lblSysHdTemp.set_label(_("HD temperature"))
+        self.lblSysTempUnit.set_label(_("Temperature unit"))
+        self.lblSysCpuFan.set_label(_("CPU fan speed"))
+        self.lblSysChassisFan.set_label(_("Chassis fan speed"))
+        self.lblSysBattery.set_label(_("Battery"))
+        self.lblSysSwap.set_label(_("Swap"))
+        self.lblSysKernel.set_label(_("Kernel"))
+        self.lblSysUP.set_label(_("Update Pack"))
 
         # Fill combos
         actions = [[_("Start")], [_("Stop")], [_("Remove")]]
@@ -184,7 +157,8 @@ class Conky(object):
         # Initialize logging
         self.log = Logger('', 'debug', True, self.statusbar)
 
-        # Get command lines
+        # Read from config file
+        self.cfg = Config(join(self.scriptDir, 'cfg/conky.conf'))
         self.commandCore = self.cfg.getValue('COMMANDS', 'core')
         self.commandCpu = self.cfg.getValue('COMMANDS', 'cpu')
         self.commandChassis = self.cfg.getValue('COMMANDS', 'chassis')
@@ -215,7 +189,7 @@ class Conky(object):
         functions.pushMessage(self.statusbar, self.version)
 
         # Show preferences at startup
-        self.on_ebMenuPreferences_button_release_event()
+        self.on_btnPreferences_clicked()
 
         self.builder.connect_signals(self)
         self.window.show()
@@ -224,57 +198,22 @@ class Conky(object):
     # Menu section functions
     # ===============================================
 
-    def on_ebMenuPreferences_enter_notify_event(self, widget, event):
-        self.changeMenuBackground(menuItems[0])
-
-    def on_ebMenuNetwork_enter_notify_event(self, widget, event):
-        self.changeMenuBackground(menuItems[1])
-
-    def on_ebMenuSystem_enter_notify_event(self, widget, event):
-        self.changeMenuBackground(menuItems[2])
-
-    def on_ebMenuPreferences_leave_notify_event(self, widget, event):
-        self.changeMenuBackground(self.selectedMenuItem)
-
-    def on_ebMenuNetwork_leave_notify_event(self, widget, event):
-        self.changeMenuBackground(self.selectedMenuItem)
-
-    def on_ebMenuSystem_leave_notify_event(self, widget, event):
-        self.changeMenuBackground(self.selectedMenuItem)
-
-    def changeMenuBackground(self, menuItem, select=False):
-        ebs = []
-        ebs.append([menuItems[0], self.ebMenuPreferences])
-        ebs.append([menuItems[1], self.ebMenuNetwork])
-        ebs.append([menuItems[2], self.ebMenuSystem])
-        for eb in ebs:
-            if eb[0] == menuItem:
-                if select:
-                    self.selectedMenuItem = menuItem
-                    eb[1].modify_bg(Gtk.StateType.NORMAL, self.clrMenuSelect)
-                else:
-                    if eb[0] != self.selectedMenuItem:
-                        eb[1].modify_bg(Gtk.StateType.NORMAL, self.clrMenuHover)
-            else:
-                if eb[0] != self.selectedMenuItem or select:
-                    eb[1].modify_bg(Gtk.StateType.NORMAL, self.clrMenuBg)
-
-    def on_ebMenuPreferences_button_release_event(self, widget=None, event=None):
+    def on_btnPreferences_clicked(self, widget=None, event=None):
         if self.selectedMenuItem != menuItems[0]:
-            self.changeMenuBackground(menuItems[0], True)
-            self.lblMenuTitle.set_text(self.lblMenuPreferences.get_text())
+            self.selectedMenuItem = menuItems[0]
+            self.lblMenuTitle.set_label(self.btnPreferences.get_label())
             self.nbConky.set_current_page(0)
 
-    def on_ebMenuNetwork_button_release_event(self, widget=None, event=None):
+    def on_btnNetwork_clicked(self, widget=None, event=None):
         if self.selectedMenuItem != menuItems[1]:
-            self.changeMenuBackground(menuItems[1], True)
-            self.lblMenuTitle.set_text(self.lblMenuNetwork.get_text())
+            self.selectedMenuItem = menuItems[1]
+            self.lblMenuTitle.set_label(self.btnNetwork.get_label())
             self.nbConky.set_current_page(1)
 
-    def on_ebMenuSystem_button_release_event(self, widget=None, event=None):
+    def on_btnSystem_clicked(self, widget=None, event=None):
         if self.selectedMenuItem != menuItems[2]:
-            self.changeMenuBackground(menuItems[2], True)
-            self.lblMenuTitle.set_text(self.lblMenuSystem.get_text())
+            self.selectedMenuItem = menuItems[2]
+            self.lblMenuTitle.set_label(self.btnSystem.get_label())
             self.nbConky.set_current_page(2)
 
     # ===============================================
