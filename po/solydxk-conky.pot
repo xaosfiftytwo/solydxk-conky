@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-05 10:37+0100\n"
+"POT-Creation-Date: 2015-01-05 13:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Upload speed"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:118 ../usr/lib/solydxk/conky/conky.py:478
+#: ../usr/lib/solydxk/conky/conky.py:118 ../usr/lib/solydxk/conky/conky.py:484
 msgid "LAN IP"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Check to show these items."
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:120 ../usr/lib/solydxk/conky/conky.py:485
+#: ../usr/lib/solydxk/conky/conky.py:120 ../usr/lib/solydxk/conky/conky.py:491
 msgid "IP"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Chassis fan speed"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:127 ../usr/lib/solydxk/conky/conky.py:492
+#: ../usr/lib/solydxk/conky/conky.py:127 ../usr/lib/solydxk/conky/conky.py:498
 msgid "Kernel"
 msgstr ""
 
@@ -201,27 +201,43 @@ msgstr ""
 msgid "Start script not found %(template)s"
 msgstr ""
 
+#: ../usr/lib/solydxk/conky/conky.py:434
+msgid "CPU"
+msgstr ""
+
 #: ../usr/lib/solydxk/conky/conky.py:435
+msgid "RAM"
+msgstr ""
+
+#: ../usr/lib/solydxk/conky/conky.py:436
+msgid "Disk"
+msgstr ""
+
+#: ../usr/lib/solydxk/conky/conky.py:437
+msgid "Net"
+msgstr ""
+
+#: ../usr/lib/solydxk/conky/conky.py:441
 msgid "Core temp"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:447
+#: ../usr/lib/solydxk/conky/conky.py:453
 msgid "CPU fan"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:458
+#: ../usr/lib/solydxk/conky/conky.py:464
 msgid "Chassis fan"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:466
+#: ../usr/lib/solydxk/conky/conky.py:472
 msgid "HD temp"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:533
+#: ../usr/lib/solydxk/conky/conky.py:539
 msgid "Save settings done"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:566
+#: ../usr/lib/solydxk/conky/conky.py:572
 msgid "Nothing to open"
 msgstr ""
 

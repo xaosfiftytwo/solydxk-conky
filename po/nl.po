@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-05 10:13+0100\n"
-"PO-Revision-Date: 2015-01-05 09:52+0200\n"
+"POT-Creation-Date: 2015-01-05 13:22+0100\n"
+"PO-Revision-Date: 2015-01-05 13:27+0200\n"
 "Last-Translator: root <arjenbalfoort@solydxk.com>\n"
 "Language-Team: none\n"
 "Language: nl\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Upload speed"
 msgstr "Upload snelheid"
 
-#: ../usr/lib/solydxk/conky/conky.py:118 ../usr/lib/solydxk/conky/conky.py:478
+#: ../usr/lib/solydxk/conky/conky.py:118 ../usr/lib/solydxk/conky/conky.py:484
 msgid "LAN IP"
 msgstr "LAN IP"
 
@@ -106,7 +106,7 @@ msgstr "LAN IP"
 msgid "Check to show these items."
 msgstr "Vink deze items aan om te tonen."
 
-#: ../usr/lib/solydxk/conky/conky.py:120 ../usr/lib/solydxk/conky/conky.py:485
+#: ../usr/lib/solydxk/conky/conky.py:120 ../usr/lib/solydxk/conky/conky.py:491
 msgid "IP"
 msgstr "IP"
 
@@ -130,7 +130,7 @@ msgstr "CPU ventilator snelheid"
 msgid "Chassis fan speed"
 msgstr "Chassis ventilator snelheid"
 
-#: ../usr/lib/solydxk/conky/conky.py:127 ../usr/lib/solydxk/conky/conky.py:492
+#: ../usr/lib/solydxk/conky/conky.py:127 ../usr/lib/solydxk/conky/conky.py:498
 msgid "Kernel"
 msgstr "Kernel"
 
@@ -205,27 +205,43 @@ msgstr "Lua template niet gevonden %(template)s"
 msgid "Start script not found %(template)s"
 msgstr "Start script niet gevonden %(template)s"
 
+#: ../usr/lib/solydxk/conky/conky.py:434
+msgid "CPU"
+msgstr "CPU"
+
 #: ../usr/lib/solydxk/conky/conky.py:435
+msgid "RAM"
+msgstr "RAM"
+
+#: ../usr/lib/solydxk/conky/conky.py:436
+msgid "Disk"
+msgstr "HD"
+
+#: ../usr/lib/solydxk/conky/conky.py:437
+msgid "Net"
+msgstr "Net"
+
+#: ../usr/lib/solydxk/conky/conky.py:441
 msgid "Core temp"
 msgstr "Processor temp"
 
-#: ../usr/lib/solydxk/conky/conky.py:447
+#: ../usr/lib/solydxk/conky/conky.py:453
 msgid "CPU fan"
 msgstr "CPU ventilator"
 
-#: ../usr/lib/solydxk/conky/conky.py:458
+#: ../usr/lib/solydxk/conky/conky.py:464
 msgid "Chassis fan"
 msgstr "Chassis ventilator"
 
-#: ../usr/lib/solydxk/conky/conky.py:466
+#: ../usr/lib/solydxk/conky/conky.py:472
 msgid "HD temp"
 msgstr "HD temp"
 
-#: ../usr/lib/solydxk/conky/conky.py:533
+#: ../usr/lib/solydxk/conky/conky.py:539
 msgid "Save settings done"
 msgstr "Bewaren instellingen afgerond"
 
-#: ../usr/lib/solydxk/conky/conky.py:566
+#: ../usr/lib/solydxk/conky/conky.py:572
 msgid "Nothing to open"
 msgstr "Niets te openen"
 

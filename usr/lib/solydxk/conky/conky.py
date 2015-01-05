@@ -430,6 +430,12 @@ class Conky(object):
             sensorsCommand = 'sensors -f'
         sensors = self.ec.run(sensorsCommand, False, False)
 
+        # Localization
+        functions.replaceStringInFile('\[CPU\]', _("CPU"), self.conkyrc)
+        functions.replaceStringInFile('\[RAM\]', _("RAM"), self.conkyrc)
+        functions.replaceStringInFile('\[DISK\]', _("Disk"), self.conkyrc)
+        functions.replaceStringInFile('\[NET\]', _("Net"), self.conkyrc)
+
         # Core temperature
         if self.chkSysCores.get_active():
             corelbl = _("Core temp")

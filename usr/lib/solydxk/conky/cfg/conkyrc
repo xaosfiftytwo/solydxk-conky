@@ -50,15 +50,15 @@ ${image /usr/share/solydxk/logo.png -p 59,109 -s 80x80}
 
 ${font Sans:size=10}
 ${color FFFFFF}${goto 30}${voffset -20}${cpu}%
-${color 00BFFF}${goto 30}CPU
+${color 00BFFF}${goto 30}[CPU]
 ${color FFFFFF}${goto 50}${voffset 30}${memperc}%
-${color 00BFFF}${goto 50}RAM
+${color 00BFFF}${goto 50}[RAM]
 ${color FFFFFF}${goto 75}${voffset 30}${fs_used_perc /}% 
-${color 00BFFF}${goto 75}Disk
+${color 00BFFF}${goto 75}[DISK]
 # Check netwerk device to use (replace the ETH placeholder with the active network device - check ifconfig)
-${color FFFFFF}${goto 100}${voffset 30}${color FFFFFF}${downspeed wlan0}
-${color FFFFFF}${goto 100}${color FFFFFF}${upspeed wlan0}
-${color 00BFFF}${goto 100}Net
+${color FFFFFF}${goto 100}${voffset 30}${color FFFFFF}${downspeed [ETH]}
+${color FFFFFF}${goto 100}${color FFFFFF}${upspeed [ETH]}
+${color 00BFFF}${goto 100}[NET]
 ${voffset 10}
 # [CORE]
 # [CPUFAN]
