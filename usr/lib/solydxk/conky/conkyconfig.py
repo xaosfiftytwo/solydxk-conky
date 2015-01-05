@@ -131,13 +131,6 @@ if eth is None:
 functions.replaceStringInFile('\[ETH\]', eth, conkyrc)
 functions.replaceStringInFile('\[ETH\]', eth, lua)
 
-# Battery / Swap
-bat = ec.run('acpi', True, False)
-if bat.lower().find('battery') >= 0:
-    functions.log("Battery detected: replace Swap with Battery index")
-    functions.replaceStringInFile('\$\{swapperc\}', '${battery_percent BAT1}', conkyrc)
-    functions.replaceStringInFile('\}Swap', '}BAT', conkyrc)
-    functions.replaceStringInFile("'swapperc'", "'battery_percent'", lua)
 
 # Core temperature
 coreList = []

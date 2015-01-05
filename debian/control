@@ -1,17 +1,28 @@
 Source: solydxk-conky
 Section: misc
 Priority: optional
-Maintainer: Schoelje <schoelje@solydxk.com>
-Build-Depends: debhelper (>= 5)
-Standards-Version: 3.7.2
+Maintainer: Arjen Balfoort <arjenbalfoort@solydxk.com>
+Build-Depends: debhelper (>= 9)
+  , python
+  , intltool
+X-Python-Version: >= 3.0
+Standards-Version: 3.9.5
+Vcs-Git: git://github.com/SolydXK/solydxk-conky.git
+Vcs-Browser: https://github.com/SolydXK/solydxk-conky
 
 Package: solydxk-conky
 Architecture: all
-Maintainer: Schoelje <schoelje@solydxk.com>
-Installed-Size: 265
-Depends: conky, lm-sensors, hddtemp, net-tools, python3, python3-gi, python3-apt, acpi, gir1.2-gtk-3.0
-Section: misc
-Priority: optional
+Depends: ${misc:Depends}, ${python:Depends}
+  , python3
+  , python3-gi
+  , passwd
+  , gir1.2-gtk-3.0
+  , conky-all
+  , lm-sensors
+  , hddtemp
+  , net-tools
+  , python3-apt
+  , acpi
 Description: Conky theme for SolydXK.
  Run "solydxk-conky" to start the GUI for each user.
  .

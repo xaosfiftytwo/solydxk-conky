@@ -9,7 +9,6 @@ import functions
 import gettext
 import webbrowser
 import shutil
-import re
 from os.path import abspath, dirname, join, expanduser, exists
 from time import sleep
 from config import Config
@@ -22,8 +21,7 @@ TEXT_ORANGE = 'FF8000'
 
 # i18n: http://docs.python.org/2/library/gettext.html
 gettext.install("solydxk-conky", "/usr/share/locale")
-#t = gettext.translation("solydxk-conky", "/usr/share/locale")
-#_ = t.lgettext
+_ = gettext.gettext
 
 menuItems = ['preferences', 'network', 'system']
 
@@ -94,14 +92,8 @@ class Conky(object):
         self.chkSysCpuFan = go('chkSysCpuFan')
         self.lblSysChassisFan = go('lblSysChassisFan')
         self.chkSysChassisFan = go('chkSysChassisFan')
-        self.lblSysBattery = go('lblSysBattery')
-        self.rbtSysBattery = go('rbtSysBattery')
-        self.lblSysSwap = go('lblSysSwap')
-        self.rbtSysSwap = go('rbtSysSwap')
         self.lblSysKernel = go('lblSysKernel')
         self.chkSysKernel = go('chkSysKernel')
-        self.lblSysUP = go('lblSysUP')
-        self.chkSysUP = go('chkSysUP')
 
         # Translations
         self.window.set_title(_("SolydXK Conky"))
@@ -120,9 +112,9 @@ class Conky(object):
         self.lblNetwInterface.set_label(_("Interface"))
         self.lblNetwInterfaceText.set_label(_("Auto detected (use ifconfig)."))
         self.lblNetwDownSpeed.set_label(_("Download speed"))
-        self.lblNetwSpeedText.set_label(_("Test your download and upload speed\nwith speed.net (in Kilobytes)."))
+        self.lblNetwSpeedText.set_label(_("Test your download and upload speed\nwith speedtest.net (in Kilobytes)."))
         self.lblNetwUpSpeed.set_label(_("Upload speed"))
-        self.btnNetspeed.set_label(_("speedtest.net"))
+        self.btnNetspeed.set_label("speedtest.net")
         self.lblNetwLanIP.set_label(_("LAN IP"))
         self.lblNetwLanIPText.set_label(_("Check to show these items."))
         self.lblNetwIP.set_label(_("IP"))
@@ -132,10 +124,7 @@ class Conky(object):
         self.lblSysTempUnit.set_label(_("Temperature unit"))
         self.lblSysCpuFan.set_label(_("CPU fan speed"))
         self.lblSysChassisFan.set_label(_("Chassis fan speed"))
-        self.lblSysBattery.set_label(_("Battery"))
-        self.lblSysSwap.set_label(_("Swap"))
         self.lblSysKernel.set_label(_("Kernel"))
-        self.lblSysUP.set_label(_("Update Pack"))
 
         # Fill combos
         actions = [[_("Start")], [_("Stop")], [_("Remove")]]
@@ -166,7 +155,6 @@ class Conky(object):
         self.commandLanIp = self.cfg.getValue('COMMANDS', 'lanip')
         self.commandIp = self.cfg.getValue('COMMANDS', 'ip')
         self.commandKernel = self.cfg.getValue('COMMANDS', 'kernel')
-        self.commandUp = self.cfg.getValue('COMMANDS', 'up')
 
         # Init variables
         self.ec = ExecCmd(self.log)
@@ -179,6 +167,8 @@ class Conky(object):
         self.conkyrc = join(self.home, '.conkyrc')
         self.conkyStart = join(self.home, '.conky-start')
         self.autostartDir = join(self.home, '.config/autostart')
+        if exists(join(self.home, '.kde/Autostart')):
+            self.autostartDir = join(self.home, '.kde/Autostart')
         self.desktop = join(self.autostartDir, 'conky.desktop')
 
         # Get current settings
@@ -273,9 +263,7 @@ class Conky(object):
         self.cmbSysTempUnit.set_active(0)
         self.chkSysCpuFan.set_active(True)
         self.chkSysChassisFan.set_active(True)
-        self.rbtSysBattery.set_active(True)
         self.chkSysKernel.set_active(True)
-        self.chkSysUP.set_active(True)
 
     # Get conky settings for the current user
     def getSettings(self):
@@ -293,13 +281,13 @@ class Conky(object):
             else:
                 # Preferences
                 if exists(self.desktop):
-                    self.log.write(_("Autostart found"), 'conky.getSettings', 'debug')
+                    self.log.write("Autostart found", 'conky.getSettings', 'debug')
                     self.chkPrefAutostart.set_active(True)
 
-                sleepStr = functions.findRegExpInString('\d+', startCont)
+                sleepStr = functions.findRegExpInString('\d{2,}', startCont)
                 if sleepStr:
                     sleepNr = functions.strToNumber(sleepStr, True)
-                    self.log.write(_("Current nr of seconds to sleep before starting Conky: %(sleepnr)d" % {'sleepnr': sleepNr}), 'conky.getSettings', 'debug')
+                    self.log.write("Current nr of seconds to sleep before starting Conky: %(sleepnr)d" % {'sleepnr': sleepNr}, 'conky.getSettings', 'debug')
                     index = -1
                     for val in self.sleep:
                         if index >= 0:
@@ -310,7 +298,7 @@ class Conky(object):
 
                 alignment = functions.findRegExpInString('alignment\s([a-z]*)', conkyrcCont, 1)
                 if alignment:
-                    self.log.write(_("Current alignment: %(alignment)s" % {'alignment': alignment}), 'conky.getSettings', 'debug')
+                    self.log.write("Current alignment: %(alignment)s" % {'alignment': alignment}, 'conky.getSettings', 'debug')
                     if alignment == 'tr':
                         self.cmbPrefAlign.set_active(0)
                     else:
@@ -321,7 +309,7 @@ class Conky(object):
                 # Network
                 eth = functions.findRegExpInString('\{downspeed\s+([a-z0-9]*)', conkyrcCont, 1)
                 if eth:
-                    self.log.write(_("Current network interface: %(interface)s" % {'interface': eth}), 'conky.getSettings', 'debug')
+                    self.log.write("Current network interface: %(interface)s" % {'interface': eth}, 'conky.getSettings', 'debug')
                     self.txtNetwInterface.set_text(eth)
                 else:
                     eth = functions.getNetworkInterface()
@@ -331,60 +319,49 @@ class Conky(object):
 
                 dl = functions.findRegExpInString('downspeedf.*\n.*\n,*[a-z\=\s]*(\d*)', luaCont, 1)
                 if dl:
-                    self.log.write(_("Current download speed: %(dl)s" % {'dl': dl}), 'conky.getSettings', 'debug')
+                    self.log.write("Current download speed: %(dl)s" % {'dl': dl}, 'conky.getSettings', 'debug')
                     self.txtNetwDownSpeed.set_text(dl)
                 else:
                     self.txtNetwDownSpeed.set_text(self.defaultSpeed)
 
                 ul = functions.findRegExpInString('upspeedf.*\n.*\n,*[a-z\=\s]*(\d*)', luaCont, 1)
                 if ul:
-                    self.log.write(_("Current upload speed: %(ul)s" % {'ul': ul}), 'conky.getSettings', 'debug')
+                    self.log.write("Current upload speed: %(ul)s" % {'ul': ul}, 'conky.getSettings', 'debug')
                     self.txtNetwUpSpeed.set_text(ul)
                 else:
                     self.txtNetwUpSpeed.set_text(self.defaultSpeed)
 
-                bat = functions.findRegExpInString("'battery_percent'", luaCont, 0)
-                if bat:
-                    self.log.write(_("Battery selected"), 'conky.getSettings', 'debug')
-                    self.rbtSysBattery.set_active(True)
-                else:
-                    self.log.write(_("Swap selected"), 'conky.getSettings', 'debug')
-                    self.rbtSysSwap.set_active(True)
-
                 if functions.findRegExpInString('<inet', conkyrcCont):
-                    self.log.write(_("Check LAN IP"), 'conky.getSettings', 'debug')
+                    self.log.write("Check LAN IP", 'conky.getSettings', 'debug')
                     self.chkNetwLanIP.set_active(True)
                 if functions.findRegExpInString('dyndns', conkyrcCont):
-                    self.log.write(_("Check IP"), 'conky.getSettings', 'debug')
+                    self.log.write("Check IP", 'conky.getSettings', 'debug')
                     self.chkNetwIP.set_active(True)
 
                 # System
-                if functions.findRegExpInString('core\d*\s+temp', conkyrcCont):
-                    self.log.write(_("Check cores"), 'conky.getSettings', 'debug')
+                if functions.findRegExpInString('Core\s\d', conkyrcCont):
+                    self.log.write("Check cores", 'conky.getSettings', 'debug')
                     self.chkSysCores.set_active(True)
                 if functions.findRegExpInString('hddtemp', conkyrcCont, 0, True):
-                    self.log.write(_("Check HD temperature"), 'conky.getSettings', 'debug')
+                    self.log.write("Check HD temperature", 'conky.getSettings', 'debug')
                     self.chkSysHd.set_active(True)
 
                 if functions.findRegExpInString('sensors\s+\-f', conkyrcCont):
-                    self.log.write(_("Using temperature unit Fahrenheit"), 'conky.getSettings', 'debug')
+                    self.log.write("Using temperature unit Fahrenheit", 'conky.getSettings', 'debug')
                     self.cmbSysTempUnit.set_active(1)
                 else:
-                    self.log.write(_("Using temperature unit Celsius"), 'conky.getSettings', 'debug')
+                    self.log.write("Using temperature unit Celsius", 'conky.getSettings', 'debug')
                     self.cmbSysTempUnit.set_active(0)
 
                 if functions.findRegExpInString('cpu\s+fan', conkyrcCont):
-                    self.log.write(_("Check CPU fan"), 'conky.getSettings', 'debug')
+                    self.log.write("Check CPU fan", 'conky.getSettings', 'debug')
                     self.chkSysCpuFan.set_active(True)
                 if functions.findRegExpInString('chassis\s+fan', conkyrcCont):
-                    self.log.write(_("Check chassis fan"), 'conky.getSettings', 'debug')
+                    self.log.write("Check chassis fan", 'conky.getSettings', 'debug')
                     self.chkSysChassisFan.set_active(True)
                 if functions.findRegExpInString('kernel', conkyrcCont, 0, True):
-                    self.log.write(_("Check kernel"), 'conky.getSettings', 'debug')
+                    self.log.write("Check kernel", 'conky.getSettings', 'debug')
                     self.chkSysKernel.set_active(True)
-                if functions.findRegExpInString('up\.hist', conkyrcCont):
-                    self.log.write(_("Check Update Pack"), 'conky.getSettings', 'debug')
-                    self.chkSysUP.set_active(True)
         else:
             self.getDefaultSettings()
 
@@ -404,7 +381,7 @@ class Conky(object):
         # conkyrc
         template = join(self.scriptDir, 'cfg/conkyrc')
         if exists(template):
-            self.log.write(_("Copy %(template)s to %(conkyrc)s" % {"template": template, "conkyrc" :self.conkyrc}), 'conky.saveSettings', 'debug')
+            self.log.write("Copy %(template)s to %(conkyrc)s" % {"template": template, "conkyrc" :self.conkyrc}, 'conky.saveSettings', 'debug')
             shutil.copy2(template, self.conkyrc)
             functions.chownCurUsr(self.conkyrc)
         else:
@@ -415,7 +392,7 @@ class Conky(object):
         if exists(template):
             if not exists(self.luaDir):
                 os.makedirs(self.luaDir)
-            self.log.write(_("Copy %(template)s to %(lua)s" % {"template": template, "lua" :self.lua}), 'conky.saveSettings', 'debug')
+            self.log.write("Copy %(template)s to %(lua)s" % {"template": template, "lua" :self.lua}, 'conky.saveSettings', 'debug')
             shutil.copy2(template, self.lua)
             functions.chownCurUsr(self.lua)
         else:
@@ -424,7 +401,7 @@ class Conky(object):
         # start script
         template = join(self.scriptDir, 'cfg/conky-start')
         if os.path.exists(template):
-            self.log.write(_("Copy %(template)s to %(conkyStart)s" % {"template": template, "conkyStart" :self.conkyStart}), 'conky.saveSettings', 'debug')
+            self.log.write("Copy %(template)s to %(conkyStart)s" % {"template": template, "conkyStart" :self.conkyStart}, 'conky.saveSettings', 'debug')
             shutil.copy2(template, self.conkyStart)
             functions.chownCurUsr(self.conkyStart)
             functions.makeExecutable(self.conkyStart)
@@ -434,128 +411,115 @@ class Conky(object):
         # Download and upload speed
         dl = self.txtNetwDownSpeed.get_text()
         functions.replaceStringInFile('\[DSPEED\]', str(dl), self.lua)
-        self.log.write(_("Save download speed: %(dl)s" % {'dl': dl}), 'conky.saveSettings', 'debug')
+        self.log.write("Save download speed: %(dl)s" % {'dl': dl}, 'conky.saveSettings', 'debug')
         ul = self.txtNetwUpSpeed.get_text()
         functions.replaceStringInFile('\[USPEED\]', str(ul), self.lua)
-        self.log.write(_("Save upload speed: %(ul)s" % {'ul': ul}), 'conky.saveSettings', 'debug')
+        self.log.write("Save upload speed: %(ul)s" % {'ul': ul}, 'conky.saveSettings', 'debug')
 
-        # Battery / Swap
-        #bat = '/proc/acpi/battery/BAT0/state'
-        if self.rbtSysSwap.get_active():
-            self.log.write(_("Swap seletected: replace Battery with Swap index"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('\$\{battery_percent BAT1\}', '${swapperc}', self.conkyrc)
-            functions.replaceStringInFile('\}BAT', '}Swap', self.conkyrc)
-            functions.replaceStringInFile("'battery_percent'", "'swapperc'", self.lua)
-            functions.replaceStringInFile("'BAT1'", "'SWAP'", self.lua)
-        elif self.rbtSysBattery.get_active():
-            self.log.write(_("Battery seletected: replace Swap with Battery index"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('${swapperc}', '\$\{battery_percent BAT1\}', self.conkyrc)
-            functions.replaceStringInFile('}Swap', '\}BAT', self.conkyrc)
-            functions.replaceStringInFile("'swapperc'", "'battery_percent'", self.lua)
-            functions.replaceStringInFile("'SWAP'", "'BAT1'", self.lua)
-
-        # Get selecte temperature unit, and get sensors data accordingly
+        # Get selecte temperature unit, and get sensor data accordingly
         tempUnit = self.getActiveComboValue(self.cmbSysTempUnit)[1][0:1].lower()
+        tempUnitStr = '°C'
         if tempUnit == 'c':
             # Celsius
-            self.log.write(_("Temperature unit: Celsius"), 'conky.saveSettings', 'debug')
+            self.log.write("Temperature unit: Celsius", 'conky.saveSettings', 'debug')
             sensorsCommand = 'sensors'
-            sensors = self.ec.run(sensorsCommand, False, False)
         else:
             # Fahrenheit
-            self.log.write(_("Temperature unit: Fahrenheit"), 'conky.saveSettings', 'debug')
+            self.log.write("Temperature unit: Fahrenheit", 'conky.saveSettings', 'debug')
+            tempUnitStr = '°F'
             sensorsCommand = 'sensors -f'
-            sensors = self.ec.run(sensorsCommand, False, False)
+        sensors = self.ec.run(sensorsCommand, False, False)
 
         # Core temperature
         if self.chkSysCores.get_active():
-            coreList = []
-            sensorsList = sensors.splitlines(True)
-            for line in sensorsList:
-                reObj = re.search('core\s{0,}\d.*\:', line, re.I)
-                if reObj:
-                    newLine = self.commandCore.replace('[CORESTR]', reObj.group(0))
-                    newLine = newLine.replace('[SENSORSTR]', sensorsCommand)
-                    self.log.write(_("Core found: %(core)s" % {'core': reObj.group(0)}), 'conky.saveSettings', 'debug')
-                    coreList.append(newLine)
-
-            if coreList:
-                self.log.write(_("Add Core lines to .conkyrc"), 'conky.saveSettings', 'debug')
-                functions.replaceStringInFile('#\s\[CORE\]', '\n'.join(coreList), self.conkyrc)
+            corelbl = _("Core temp")
+            self.commandCore = self.commandCore.replace('[TEMPUNIT]', tempUnitStr)
+            self.commandCore = self.commandCore.replace("[CORELABEL]", corelbl)
+            self.commandCore = self.commandCore.replace("[SENSORSTR]", sensorsCommand)
+            functions.replaceStringInFile('#\s*\[CORE\]', self.commandCore, self.conkyrc)
+            self.log.write("Core command added", 'conky.saveSettings', 'debug')
 
         # CPU fan speed
         if self.chkSysCpuFan.get_active():
             cpufan = functions.findRegExpInString('cpu\s{0,}fan.*\:', sensors)
-            self.log.write(_("Cpu fan value = %(cpufan)s" % {'cpufan' :str(cpufan)}), 'conky.saveSettings', 'debug')
+            self.log.write("Cpu fan value = %(cpufan)s" % {'cpufan' :str(cpufan)}, 'conky.saveSettings', 'debug')
             if cpufan:
-                newLine = self.commandCpu.replace('[CPUSTR]', cpufan)
-                functions.replaceStringInFile('#\s\[CPUFAN\]', newLine, self.conkyrc)
+                cpulbl = _("CPU fan")
+                self.commandCpu = self.commandCpu.replace("[CPULABEL]", cpulbl)
+                self.commandCpu = self.commandCpu.replace('[CPUSTR]', cpufan)
+
+                functions.replaceStringInFile('#\s*\[CPUFAN\]', self.commandCpu, self.conkyrc)
 
         # Chassis fan speed
         if self.chkSysChassisFan.get_active():
             chafan = functions.findRegExpInString('chassis\s{0,}fan.*\:', sensors)
-            self.log.write(_("Chassis fan value = %(chafan)s" % {'chafan' :str(chafan)}), 'conky.saveSettings', 'debug')
+            self.log.write("Chassis fan value = %(chafan)s" % {'chafan' :str(chafan)}, 'conky.saveSettings', 'debug')
             if chafan:
-                newLine = self.commandChassis.replace('[CHASTR]', chafan)
-                functions.replaceStringInFile('#\s\[CHAFAN\]', newLine, self.conkyrc)
+                chassislbl = _("Chassis fan")
+                self.commandChassis = self.commandChassis.replace("[CHASSISLABEL]", chassislbl)
+                self.commandChassis = self.commandChassis.replace('[CHASTR]', chafan)
+                functions.replaceStringInFile('#\s*\[CHAFAN\]', self.commandChassis, self.conkyrc)
 
         # HD temperature unit
         if self.chkSysHd.get_active():
-            self.log.write(_("Add HDD temperature to .conkyrc"), 'conky.saveSettings', 'debug')
-            newLine = self.commandHdd.replace('[TEMPUNIT]', tempUnit.upper())
+            self.log.write("Add HDD temperature to .conkyrc", 'conky.saveSettings', 'debug')
+            hdlbl = _("HD temp")
+            self.commandHdd = self.commandHdd.replace('[TEMPUNIT]', tempUnitStr)
+            self.commandHdd = self.commandHdd.replace('[HDLABEL]', hdlbl)
             hddCommand = 'hddtemp -n'
             if tempUnit == 'f':
                 hddCommand = 'hddtemp -n -u f'
-            newLine = newLine.replace('[HDDSTR]', hddCommand)
-            functions.replaceStringInFile('#\s\[HDDTEMP\]', newLine, self.conkyrc)
+            self.commandHdd = self.commandHdd.replace('[HDDSTR]', hddCommand)
+            functions.replaceStringInFile('#\s*\[HDDTEMP\]', self.commandHdd, self.conkyrc)
 
         # LAN IP
         if self.chkNetwLanIP.get_active():
-            self.log.write(_("Add LAN IP to .conkyrc"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('#\s\[LANIP\]', self.commandLanIp, self.conkyrc)
+            self.log.write("Add LAN IP to .conkyrc", 'conky.saveSettings', 'debug')
+            lanlbl = _("LAN IP")
+            self.commandLanIp = self.commandLanIp.replace("[LANLABEL]", lanlbl)
+            functions.replaceStringInFile('#\s*\[LANIP\]', self.commandLanIp, self.conkyrc)
 
         # IP
         if self.chkNetwIP.get_active():
-            self.log.write(_("Add IP to .conkyrc"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('#\s\[IP\]', self.commandIp, self.conkyrc)
+            self.log.write("Add IP to .conkyrc", 'conky.saveSettings', 'debug')
+            iplbl = _("IP")
+            self.commandIp = self.commandIp.replace("[IPLABEL]", iplbl)
+            functions.replaceStringInFile('#\s*\[IP\]', self.commandIp, self.conkyrc)
 
         # Kernel
         if self.chkSysKernel.get_active():
-            self.log.write(_("Add Kernel to .conkyrc"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('#\s\[KERNEL\]', self.commandKernel, self.conkyrc)
-
-        # UP
-        if self.chkSysUP.get_active():
-            self.log.write(_("Add Update Pack to .conkyrc"), 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile('#\s\[UP\]', self.commandUp, self.conkyrc)
+            self.log.write("Add Kernel to .conkyrc", 'conky.saveSettings', 'debug')
+            kernellbl = _("Kernel")
+            self.commandKernel = self.commandKernel.replace("[KERNELLABEL]", kernellbl)
+            functions.replaceStringInFile('#\s*\[KERNEL\]', self.commandKernel, self.conkyrc)
 
         # Conky desktop alignment
         alignment = self.getActiveComboValue(self.cmbPrefAlign)
-        self.log.write(_("Conky alignment = %(alignment)s" % {'alignment': alignment[1]}), 'conky.saveSettings', 'debug')
+        self.log.write("Conky alignment = %(alignment)s" % {'alignment': alignment[1]}, 'conky.saveSettings', 'debug')
         if alignment[0] > 0:
             functions.replaceStringInFile('alignment\s+tr', 'alignment tl', self.conkyrc)
 
         # Write sleep before conky start
         sleepNr = functions.strToNumber(self.getActiveComboValue(self.cmbPrefSleep)[1], True)
-        self.log.write(_("Conky sleep before start = %(sleep)d seconds" % {'sleep': sleepNr}), 'conky.saveSettings', 'debug')
+        self.log.write("Conky sleep before start = %(sleep)d seconds" % {'sleep': sleepNr}, 'conky.saveSettings', 'debug')
         if sleepNr != 20:
             functions.replaceStringInFile('20', str(sleepNr), self.conkyStart)
 
         # Network interface
         eth = self.txtNetwInterface.get_text()
-        self.log.write(_("Save network interface: %(interface)s" % {'interface': eth}), 'conky.saveSettings', 'debug')
+        self.log.write("Save network interface: %(interface)s" % {'interface': eth}, 'conky.saveSettings', 'debug')
         functions.replaceStringInFile('\[ETH\]', eth, self.conkyrc)
         functions.replaceStringInFile('\[ETH\]', eth, self.lua)
 
         # Change color scheme for SolydX
         if 'solydx' in self.dist.lower():
-            self.log.write(_("Create orange theme for SolydX"), 'conky.saveSettings', 'debug')
+            self.log.write("Create orange theme for SolydX", 'conky.saveSettings', 'debug')
             functions.replaceStringInFile(TEXT_BLUE, TEXT_ORANGE, self.conkyrc)
             functions.replaceStringInFile(TEXT_BLUE, TEXT_ORANGE, self.lua)
 
         # Automatically start Conky when the user logs in
         if self.chkPrefAutostart.get_active() and not exists(self.desktop):
-            self.log.write(_("Write autostart file: %(desktop)s" % {'desktop': self.desktop}), 'conky.saveSettings', 'debug')
+            self.log.write("Write autostart file: %(desktop)s" % {'desktop': self.desktop}, 'conky.saveSettings', 'debug')
             if not exists(self.autostartDir):
                 os.makedirs(self.autostartDir)
             desktopCont = '[Desktop Entry]\nComment=SolydXK Conky\nExec=[CONKYSTART]\nIcon=/usr/share/solydxk/logo.png\nStartupNotify=true\nTerminal=false\nType=Application\nName=SolydXK Conky\nGenericName=SolydXK Conky'
@@ -593,10 +557,10 @@ class Conky(object):
     def openUrl(self, urlOrPath):
         if urlOrPath != '':
             if '://' in urlOrPath:
-                self.log.write(_("Open URL: %(url)s") % {"url": urlOrPath}, 'conky.openUrl', 'debug')
+                self.log.write("Open URL: %(url)s" % {"url": urlOrPath}, 'conky.openUrl', 'debug')
                 webbrowser.open(urlOrPath)
             else:
-                self.log.write(_("Start program: %(prg)s") % {"prg": urlOrPath}, 'conky.openUrl', 'debug')
+                self.log.write("Start program: %(prg)s" % {"prg": urlOrPath}, 'conky.openUrl', 'debug')
                 os.system(urlOrPath)
         else:
             self.log.write(_("Nothing to open"), 'conky.openUrl', 'error')

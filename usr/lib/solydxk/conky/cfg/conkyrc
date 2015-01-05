@@ -43,26 +43,23 @@ lua_load ~/.lua/scripts/clock_rings.lua
 lua_draw_hook_pre clock_rings
 
 TEXT
-${voffset 8}${color 00BFFF}${font Ubuntu:size=16}${time %A}${font}${voffset -8}${alignr 55}${color FFFFFF}${font Caviar Dreams:size=38}${time %e}${font}
+${voffset -2}${color 00BFFF}${font Ubuntu:size=16}${time %A}${font}${voffset -8}${alignr 55}${color FFFFFF}${font Caviar Dreams:size=38}${time %e}${font}
 ${color FFFFFF}${voffset -30}${color FFFFFF}${font Ubuntu:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font Caviar Dreams:size=20}${time %Y}${font}${color 00BFFF}${hr}
-${voffset 130}${font Ubuntu:size=14}${alignr}${pre_exec cat /etc/issue.net}
-${image /usr/share/solydxk/common/artwork/logos/128.png -p 59,109 -s 80x80}
+${voffset 180}${font Ubuntu:size=14}${alignr}${pre_exec cat /etc/issue.net}
+${image /usr/share/solydxk/logo.png -p 59,109 -s 80x80}
 
 ${font Sans:size=10}
-${color FFFFFF}${goto 25}${voffset 27}${cpu cpu0}%
-${color 00BFFF}${goto 25}CPU
-${color FFFFFF}${goto 50}${voffset 20}${memperc}%
+${color FFFFFF}${goto 30}${voffset -20}${cpu}%
+${color 00BFFF}${goto 30}CPU
+${color FFFFFF}${goto 50}${voffset 30}${memperc}%
 ${color 00BFFF}${goto 50}RAM
-${color FFFFFF}${goto 75}${voffset 20}${fs_used_perc /}%
+${color FFFFFF}${goto 75}${voffset 30}${fs_used_perc /}% 
 ${color 00BFFF}${goto 75}Disk
-# Switch 'BAT' for 'Swap', and 'battery_percent BAT0' for 'swapperc' if user select Swap (and vise versa)
-${color FFFFFF}${goto 100}${voffset 20}${battery_percent BAT1}%
-${color 00BFFF}${goto 100}BAT
 # Check netwerk device to use (replace the ETH placeholder with the active network device - check ifconfig)
-${color FFFFFF}${goto 125}${voffset 20}${color FFFFFF}${downspeed [ETH]}
-${color FFFFFF}${goto 125}${color FFFFFF}${upspeed [ETH]}
-${color 00BFFF}${goto 125}Net
-${voffset 40}
+${color FFFFFF}${goto 100}${voffset 30}${color FFFFFF}${downspeed wlan0}
+${color FFFFFF}${goto 100}${color FFFFFF}${upspeed wlan0}
+${color 00BFFF}${goto 100}Net
+${voffset 10}
 # [CORE]
 # [CPUFAN]
 # [CHAFAN]
@@ -70,4 +67,3 @@ ${voffset 40}
 # [LANIP]
 # [IP]
 # [KERNEL]
-# [UP]

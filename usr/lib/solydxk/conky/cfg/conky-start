@@ -1,5 +1,5 @@
 #!/bin/bash
 if ! pidof conky | grep [0-9] > /dev/null; then
-   sleep 20 && conky &
+   sleep 10 && conky &
 fi
 

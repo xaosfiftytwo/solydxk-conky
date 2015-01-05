@@ -2,12 +2,12 @@
 Categories=Application;System;
 Encoding=UTF-8
 Exec=solydxk-conky
-GenericName[en_US]=SolydXK Conky configuration
 GenericName=SolydXK Conky configuration
+GenericName[nl]=SolydXK Conky configuratie
 Icon=conky-manager
 MimeType=
-Name[en_US]=SolydXK Conky
 Name=SolydXK Conky
+Name[nl]=SolydXK Conky
 Path=
 StartupNotify=false
 Terminal=false
