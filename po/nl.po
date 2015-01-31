@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-05 13:22+0100\n"
+"POT-Creation-Date: 2015-01-16 16:38+0100\n"
 "PO-Revision-Date: 2015-01-05 13:27+0200\n"
 "Last-Translator: root <arjenbalfoort@solydxk.com>\n"
 "Language-Team: none\n"
@@ -162,40 +162,40 @@ msgstr "Celsius"
 msgid "Fahrenheit"
 msgstr "Fahrenheit"
 
-#: ../usr/lib/solydxk/conky/conky.py:224
+#: ../usr/lib/solydxk/conky/conky.py:222
 msgid "Conky started"
 msgstr "Conky gestart"
 
-#: ../usr/lib/solydxk/conky/conky.py:229
+#: ../usr/lib/solydxk/conky/conky.py:227
 msgid "Conky stopped"
 msgstr "Conky gestopt"
 
-#: ../usr/lib/solydxk/conky/conky.py:231
+#: ../usr/lib/solydxk/conky/conky.py:229
 msgid "Conky is not running"
 msgstr "Conky is niet gestart"
 
-#: ../usr/lib/solydxk/conky/conky.py:236
+#: ../usr/lib/solydxk/conky/conky.py:234
 msgid "Conky removed"
 msgstr "Conky verwijderd"
 
-#: ../usr/lib/solydxk/conky/conky.py:248
+#: ../usr/lib/solydxk/conky/conky.py:246
 msgid "Get default settings"
 msgstr "Verkrijg standaardinstellingen"
 
-#: ../usr/lib/solydxk/conky/conky.py:271
+#: ../usr/lib/solydxk/conky/conky.py:269
 msgid "Start reading existing settings"
 msgstr "Start met het lezen van bestaande instellingen"
 
-#: ../usr/lib/solydxk/conky/conky.py:374
+#: ../usr/lib/solydxk/conky/conky.py:376
 msgid "Save settings..."
 msgstr "Bewaar instellingen..."
 
-#: ../usr/lib/solydxk/conky/conky.py:388
+#: ../usr/lib/solydxk/conky/conky.py:390
 #, python-format
 msgid "Conkyrc template not found %(template)s"
 msgstr "Conkyrc template niet gevonden %(template)s"
 
-#: ../usr/lib/solydxk/conky/conky.py:399
+#: ../usr/lib/solydxk/conky/conky.py:401
 #, python-format
 msgid "Lua template not found %(template)s"
 msgstr "Lua template niet gevonden %(template)s"
@@ -241,7 +241,7 @@ msgstr "HD temp"
 msgid "Save settings done"
 msgstr "Bewaren instellingen afgerond"
 
-#: ../usr/lib/solydxk/conky/conky.py:572
+#: ../usr/lib/solydxk/conky/conky.py:573
 msgid "Nothing to open"
 msgstr "Niets te openen"
 

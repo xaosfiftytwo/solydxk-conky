@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-05 13:28+0100\n"
+"POT-Creation-Date: 2015-01-16 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,40 +158,40 @@ msgstr ""
 msgid "Fahrenheit"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:224
+#: ../usr/lib/solydxk/conky/conky.py:222
 msgid "Conky started"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:229
+#: ../usr/lib/solydxk/conky/conky.py:227
 msgid "Conky stopped"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:231
+#: ../usr/lib/solydxk/conky/conky.py:229
 msgid "Conky is not running"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:236
+#: ../usr/lib/solydxk/conky/conky.py:234
 msgid "Conky removed"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:248
+#: ../usr/lib/solydxk/conky/conky.py:246
 msgid "Get default settings"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:271
+#: ../usr/lib/solydxk/conky/conky.py:269
 msgid "Start reading existing settings"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:374
+#: ../usr/lib/solydxk/conky/conky.py:376
 msgid "Save settings..."
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:388
+#: ../usr/lib/solydxk/conky/conky.py:390
 #, python-format
 msgid "Conkyrc template not found %(template)s"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:399
+#: ../usr/lib/solydxk/conky/conky.py:401
 #, python-format
 msgid "Lua template not found %(template)s"
 msgstr ""
@@ -237,7 +237,7 @@ msgstr ""
 msgid "Save settings done"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:572
+#: ../usr/lib/solydxk/conky/conky.py:573
 msgid "Nothing to open"
 msgstr ""
 

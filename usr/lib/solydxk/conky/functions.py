@@ -669,8 +669,7 @@ def chownCurUsr(path):
 # Make file executable
 def makeExecutable(path):
     if exists(path):
-        st = os.stat(path)
-        os.chmod(path, st.st_mode | stat.S_IEXEC)
+        os.chmod(path, 0o755)
 
 
 # Get current user home directory (even when sudo'ed)

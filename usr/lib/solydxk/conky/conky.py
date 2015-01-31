@@ -14,7 +14,7 @@ from time import sleep
 from config import Config
 from logger import Logger
 from execcmd import ExecCmd
-from dialogs import MessageDialogSave
+from dialogs import MessageDialogSafe
 
 TEXT_BLUE = '00BFFF'
 TEXT_ORANGE = 'FF8000'
@@ -167,8 +167,6 @@ class Conky(object):
         self.conkyrc = join(self.home, '.conkyrc')
         self.conkyStart = join(self.home, '.conky-start')
         self.autostartDir = join(self.home, '.config/autostart')
-        if exists(join(self.home, '.kde/Autostart')):
-            self.autostartDir = join(self.home, '.kde/Autostart')
         self.desktop = join(self.autostartDir, 'conky.desktop')
 
         # Get current settings
@@ -284,17 +282,21 @@ class Conky(object):
                     self.log.write("Autostart found", 'conky.getSettings', 'debug')
                     self.chkPrefAutostart.set_active(True)
 
-                sleepStr = functions.findRegExpInString('\d{2,}', startCont)
-                if sleepStr:
-                    sleepNr = functions.strToNumber(sleepStr, True)
-                    self.log.write("Current nr of seconds to sleep before starting Conky: %(sleepnr)d" % {'sleepnr': sleepNr}, 'conky.getSettings', 'debug')
-                    index = -1
-                    for val in self.sleep:
-                        if index >= 0:
-                            if sleepNr < val[0]:
-                                break
-                        index += 1
-                    self.cmbPrefSleep.set_active(index)
+                try:
+                    sleepStr = functions.findRegExpInString('\d{2,}', startCont)
+                    if sleepStr:
+                        sleepNr = functions.strToNumber(sleepStr, True)
+                        self.log.write("Current nr of seconds to sleep before starting Conky: %(sleepnr)d" % {'sleepnr': sleepNr}, 'conky.getSettings', 'debug')
+                        index = -1
+                        for val in self.sleep:
+                            if index >= 0:
+                                if sleepNr < val[0]:
+                                    break
+                            index += 1
+                        self.cmbPrefSleep.set_active(index)
+                except:
+                    # Best effort
+                    pass
 
                 alignment = functions.findRegExpInString('alignment\s([a-z]*)', conkyrcCont, 1)
                 if alignment:
@@ -403,8 +405,6 @@ class Conky(object):
         if os.path.exists(template):
             self.log.write("Copy %(template)s to %(conkyStart)s" % {"template": template, "conkyStart" :self.conkyStart}, 'conky.saveSettings', 'debug')
             shutil.copy2(template, self.conkyStart)
-            functions.chownCurUsr(self.conkyStart)
-            functions.makeExecutable(self.conkyStart)
         else:
             self.log.write(_("Start script not found %(template)s" % {"template": template}), 'conky.saveSettings', 'error')
 
@@ -535,10 +535,11 @@ class Conky(object):
             functions.makeExecutable(self.desktop)
 
         msg = "SolydXK Conky configuration has finished.\n\nWill now start Conky with the new configuration."
-        MessageDialogSave(self.window.get_title(), msg, Gtk.MessageType.INFO, self.window).show()
+        MessageDialogSafe(self.window.get_title(), msg, Gtk.MessageType.INFO, self.window).show()
         self.log.write(_("Save settings done"), 'conky.saveSettings', 'info')
 
         # Restart Conky
+        functions.makeExecutable(self.conkyStart)
         if functions.isProcessRunning('conky'):
             os.system('killall conky')
         os.system('conky &')
