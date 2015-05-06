@@ -21,7 +21,7 @@ TEXT_ORANGE = 'FF8000'
 
 # i18n: http://docs.python.org/2/library/gettext.html
 gettext.install("solydxk-conky", "/usr/share/locale")
-_ = gettext.gettext
+#_ = gettext.gettext
 
 menuItems = ['preferences', 'network', 'system']
 

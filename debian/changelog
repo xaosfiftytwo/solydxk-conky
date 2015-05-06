@@ -1,3 +1,15 @@
+solydxk-conky (1.0.8) debian; urgency=low
+
+  * * French translation
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Wed, 06 May 2015 15:30:00 +0100
+
+solydxk-conky (1.0.7) debian; urgency=low
+
+  * Fix gettext bug
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Wed, 29 Apr 2015 18:00:00 +0100
+
 solydxk-conky (1.0.6) debian; urgency=low
 
   * Add script to retrieve WAN IP from several sources: myip
