@@ -1,12 +1,10 @@
 #! /usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 # sudo apt-get install python3-gi
 # from gi.repository import Gtk, GdkPixbuf, GObject, Pango, Gdk
 from gi.repository import Gtk
 import os
 import functions
-import gettext
 import webbrowser
 import shutil
 from os.path import abspath, dirname, join, expanduser, exists
@@ -19,9 +17,10 @@ from dialogs import MessageDialogSafe
 TEXT_BLUE = '00BFFF'
 TEXT_ORANGE = 'FF8000'
 
-# i18n: http://docs.python.org/2/library/gettext.html
-gettext.install("solydxk-conky", "/usr/share/locale")
-#_ = gettext.gettext
+# i18n: http://docs.python.org/3/library/gettext.html
+import gettext
+from gettext import gettext as _
+gettext.textdomain('solydxk-conky')
 
 menuItems = ['preferences', 'network', 'system']
 

@@ -1,3 +1,9 @@
+solydxk-conky (1.0.9) debian; urgency=low
+
+  * Improved localization handling
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Mon, 22 June 2015 12:00:00 +0100
+
 solydxk-conky (1.0.8) debian; urgency=low
 
   * * French translation

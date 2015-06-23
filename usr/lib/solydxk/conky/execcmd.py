@@ -2,11 +2,11 @@
 
 import sys
 import subprocess
-import gettext
 
-# i18n: http://docs.python.org/2/library/gettext.html
-#t = gettext.translation("solydxk-conky", "/usr/share/locale")
-#_ = t.lgettext
+# i18n: http://docs.python.org/3/library/gettext.html
+import gettext
+from gettext import gettext as _
+gettext.textdomain('solydxk-conky')
 
 
 # Class to execute a command and return the output in an array

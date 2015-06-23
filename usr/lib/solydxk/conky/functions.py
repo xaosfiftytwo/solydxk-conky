@@ -9,7 +9,6 @@ try:
     import operator
     import apt
     import apt_pkg
-    import stat
     import fnmatch
     import urllib.request
     import urllib.error
