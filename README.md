@@ -1,3 +1,6 @@
 Conky for SolydX and SolydK
+===================
 
-Depends: conky, lm-sensors, hddtemp, net-tools, acpi, python3, python3-gi, python3-apt
+Please, help translating: https://www.transifex.com/solydxk/solydxk-conky/dashboard/
+
+Configures SolydXK Conky on your system.
