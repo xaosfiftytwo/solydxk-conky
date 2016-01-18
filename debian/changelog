@@ -1,8 +1,20 @@
-solydxk-conky (1.1.1) debian; urgency=low
+solydxk-conky (1.1.4) debian; urgency=low
 
   * Updated translations
 
- -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Tue, 03 Nov 2015 17:00:00 +0100
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Mon, 18 Jan 2016 18:00:00 +0100
+
+solydxk-conky (1.1.3) debian; urgency=low
+
+  * Updated translations
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Fri, 11 Dec 2015 10:00:00 +0100
+
+solydxk-conky (1.1.2) debian; urgency=low
+
+  * Updated translations
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Thu, 26 Nov 2015 12:00:00 +0100
 
 solydxk-conky (1.0.9) debian; urgency=low
 
