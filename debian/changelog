@@ -1,3 +1,11 @@
+solydxk-conky (1.1.5) debian; urgency=low
+
+  * Changed position and colors for new flat wallpaper
+  * Added Colors tab
+  * General debugging
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Thu, 21 Jan 2016 17:00:00 +0100
+
 solydxk-conky (1.1.4) debian; urgency=low
 
   * Updated translations

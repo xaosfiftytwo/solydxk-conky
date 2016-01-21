@@ -2,7 +2,10 @@
 
 # sudo apt-get install python3-gi
 # from gi.repository import Gtk, GdkPixbuf, GObject, Pango, Gdk
-from gi.repository import Gtk
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk
+
 import os
 import functions
 import webbrowser
@@ -12,17 +15,23 @@ from time import sleep
 from config import Config
 from logger import Logger
 from execcmd import ExecCmd
-from dialogs import MessageDialogSafe
-
-TEXT_BLUE = '00BFFF'
-TEXT_ORANGE = 'FF8000'
+from dialogs import MessageDialog, WarningDialog
 
 # i18n: http://docs.python.org/3/library/gettext.html
 import gettext
 from gettext import gettext as _
-gettext.textdomain('solydxk-conky')
+gettext.install('solydxk-conky')
 
-menuItems = ['preferences', 'network', 'system']
+# Menu items
+menuItems = ['preferences', 'network', 'system', 'colors']
+
+# Default colors
+DAY_CLOCK_K = '00BFFF'
+DAY_CLOCK_X = 'FF7F01'
+DATE_TITLE_K = 'FFFFFF'
+DATE_TITLE_X = 'FFFFFF'
+SYS_INFO_K = '00455F'
+SYS_INFO_X = '842900'
 
 
 #class for the main window
@@ -42,6 +51,7 @@ class Conky(object):
         self.btnPreferences = go('btnPreferences')
         self.btnNetwork = go('btnNetwork')
         self.btnSystem = go('btnSystem')
+        self.btnColors = go('btnColors')
         self.nbConky = go('nbConky')
         self.btnSave = go('btnSave')
 
@@ -94,11 +104,27 @@ class Conky(object):
         self.lblSysKernel = go('lblSysKernel')
         self.chkSysKernel = go('chkSysKernel')
 
+        # Color objects
+        self.colorchooser = go('colorchooserDialog')
+        self.lblDateTitle = go('lblDateTitle')
+        self.lblDayClock = go('lblDayClock')
+        self.lblSystemInfo = go('lblSystemInfo')
+        self.colorBtnDateTitle = go('colorBtnDateTitle')
+        self.colorBtnDayClock = go('colorBtnDayClock')
+        self.colorBtnSystemInfo = go('colorBtnSystemInfo')
+        self.dateTitleColor = None
+        self.dayClockColor = None
+        self.systemInfoColor = None
+        self.dateTitleColorNew = None
+        self.dayClockColorNew = None
+        self.systemInfoColorNew = None
+
         # Translations
         self.window.set_title(_("SolydXK Conky"))
         self.btnPreferences.set_label(_("Preferences"))
         self.btnNetwork.set_label(_("Network"))
         self.btnSystem.set_label(_("System"))
+        self.btnColors.set_label(_("Colors"))
         self.btnSave.set_label(_("Save"))
         self.lblPrefAction.set_label(_("Action"))
         self.btnPrefActionApply.set_label(_("Apply"))
@@ -124,6 +150,20 @@ class Conky(object):
         self.lblSysCpuFan.set_label(_("CPU fan speed"))
         self.lblSysChassisFan.set_label(_("Chassis fan speed"))
         self.lblSysKernel.set_label(_("Kernel"))
+        self.lblDateTitle.set_label(_("Date and title"))
+        self.lblDayClock.set_label(_("Day and clock"))
+        self.lblSystemInfo.set_label(_("System information"))
+        self.corelbl = _("Core temp")
+        self.cpulbl = _("CPU fan")
+        self.chassislbl = _("Chassis fan")
+        self.hdlbl = _("HD temp")
+        self.lanlbl = _("LAN IP")
+        self.iplbl = _("IP")
+        self.kernellbl = _("Kernel")
+        reset = _("Reset")
+        go('btnResetDateTitle').set_label(reset)
+        go('btnResetDayClock').set_label(reset)
+        go('btnResetSystemInfo').set_label(reset)
 
         # Fill combos
         actions = [[_("Start")], [_("Stop")], [_("Remove")]]
@@ -145,8 +185,24 @@ class Conky(object):
         # Initialize logging
         self.log = Logger('', 'debug', True, self.statusbar)
 
+        # Get distribution specific settings
+        self.dist = functions.getDistribution(False).lower()
+        conf_path = join(self.scriptDir, 'cfg/conky-k.conf')
+        self.conkyrc_template = join(self.scriptDir, 'cfg/conkyrc-k')
+        self.lua_template = join(self.scriptDir, 'cfg/clock_rings-k.lua')
+        self.dateTitleColorDefault = DATE_TITLE_K.upper()
+        self.dayClockColorDefault = DAY_CLOCK_K.upper()
+        self.systemInfoColorDefault = SYS_INFO_K.upper()
+        if 'solydx' in self.dist:
+            conf_path = join(self.scriptDir, 'cfg/conky-x.conf')
+            self.conkyrc_template = join(self.scriptDir, 'cfg/conkyrc-x')
+            self.lua_template = join(self.scriptDir, 'cfg/clock_rings-x.lua')
+            self.dateTitleColorDefault = DATE_TITLE_X.upper()
+            self.dayClockColorDefault = DAY_CLOCK_X.upper()
+            self.systemInfoColorDefault = SYS_INFO_X.upper()
+
         # Read from config file
-        self.cfg = Config(join(self.scriptDir, 'cfg/conky.conf'))
+        self.cfg = Config(conf_path)
         self.commandCore = self.cfg.getValue('COMMANDS', 'core')
         self.commandCpu = self.cfg.getValue('COMMANDS', 'cpu')
         self.commandChassis = self.cfg.getValue('COMMANDS', 'chassis')
@@ -160,7 +216,6 @@ class Conky(object):
         self.selectedMenuItem = None
         self.defaultSpeed = '1000'
         self.home = expanduser("~/")
-        self.dist = functions.getDistribution(False)
         self.luaDir = join(self.home, '.lua/scripts')
         self.lua = join(self.luaDir, 'clock_rings.lua')
         self.conkyrc = join(self.home, '.conkyrc')
@@ -203,6 +258,12 @@ class Conky(object):
             self.lblMenuTitle.set_label(self.btnSystem.get_label())
             self.nbConky.set_current_page(2)
 
+    def on_btnColors_clicked(self, widget=None, event=None):
+        if self.selectedMenuItem != menuItems[3]:
+            self.selectedMenuItem = menuItems[3]
+            self.lblMenuTitle.set_label(self.btnColors.get_label())
+            self.nbConky.set_current_page(3)
+
     # ===============================================
     # Button functions
     # ===============================================
@@ -218,22 +279,58 @@ class Conky(object):
                 if functions.isProcessRunning('conky'):
                     os.system('killall conky')
                 os.system('conky &')
-                self.log.write(_("Conky started"), 'conky.on_btnPrefActionApply_clicked', 'info')
+                self.log.write("Conky started", 'conky.on_btnPrefActionApply_clicked', 'info')
             elif action[0] == 1:
                 # Stop
                 if functions.isProcessRunning('conky'):
                     os.system('killall conky')
-                    self.log.write(_("Conky stopped"), 'conky.on_btnPrefActionApply_clicked', 'info')
+                    self.log.write("Conky stopped", 'conky.on_btnPrefActionApply_clicked', 'info')
                 else:
-                    self.log.write(_("Conky is not running"), 'conky.on_btnPrefActionApply_clicked', 'info')
+                    self.log.write("Conky is not running", 'conky.on_btnPrefActionApply_clicked', 'info')
             elif action[0] == 2:
                 # Remove
                 self.removeConky()
                 self.getDefaultSettings()
-                self.log.write(_("Conky removed"), 'conky.on_btnPrefActionApply_clicked', 'info')
+                self.log.write("Conky removed", 'conky.on_btnPrefActionApply_clicked', 'info')
 
     def on_btnNetspeed_clicked(self, widget):
         self.openUrl("http://speedtest.net")
+
+    def on_colorBtnDateTitle_color_set(self, widget):
+        hex_color = self.getHexColor(widget)
+        if hex_color != self.dateTitleColor:
+            self.dateTitleColorNew = hex_color
+            self.log.write("Selected Date and Title color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.on_colorBtnDateTitle_color_set', 'info')
+
+    def on_colorBtnDayClock_color_set(self, widget):
+        hex_color = self.getHexColor(widget)
+        if hex_color != self.dayClockColor:
+            self.dayClockColorNew = hex_color
+            self.log.write("Selected Day and Clock color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.on_colorBtnDayClock_color_set', 'info')
+
+    def on_colorBtnSystemInfo_color_set(self, widget):
+        hex_color = self.getHexColor(widget)
+        if hex_color != self.systemInfoColor:
+            self.systemInfoColorNew = hex_color
+            self.log.write("Selected System Information color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.on_colorBtnSystemInfo_color_set', 'info')
+
+    def on_btnResetDateTitle_clicked(self, widget):
+        if self.dateTitleColor != self.dateTitleColorDefault:
+            self.dateTitleColorNew = self.dateTitleColorDefault
+            self.setColorButtonColor(self.colorBtnDateTitle, self.dateTitleColorDefault)
+            self.log.write("Reset Date and Title color: %s" % self.dateTitleColorDefault, 'conky.on_btnResetDateTitle_clicked', 'info')
+
+    def on_btnResetDayClock_clicked(self, widget):
+        if self.dayClockColor != self.dayClockColorDefault:
+            self.dayClockColorNew = self.dayClockColorDefault
+            self.setColorButtonColor(self.colorBtnDayClock, self.dayClockColorDefault)
+            self.log.write("Reset Day and Clock color: %s" % self.dayClockColorDefault, 'conky.on_btnResetDayClock_clicked', 'info')
+
+    def on_btnResetSystemInfo_clicked(self, widget):
+        if self.systemInfoColor != self.systemInfoColorDefault:
+            self.systemInfoColorNew = self.systemInfoColorDefault
+            self.setColorButtonColor(self.colorBtnSystemInfo, self.systemInfoColorDefault)
+            self.log.write("Reset System Information color: %s" % self.systemInfoColorDefault, 'conky.on_btnResetSystemInfo_clicked', 'info')
 
     # ===============================================
     # Get settings
@@ -242,7 +339,7 @@ class Conky(object):
     # Default settings (no .conkyrc in user home directory)
     def getDefaultSettings(self):
         # Set default values in gui
-        self.log.write(_("Get default settings"), 'conky.getDefaultSettings', 'info')
+        self.log.write("Get default settings", 'conky.getDefaultSettings', 'info')
         self.cmbPrefAction.set_active(0)
         self.cmbPrefSleep.set_active(2)
         self.cmbPrefAlign.set_active(0)
@@ -261,11 +358,17 @@ class Conky(object):
         self.chkSysCpuFan.set_active(True)
         self.chkSysChassisFan.set_active(True)
         self.chkSysKernel.set_active(True)
+        self.dayClockColor = self.dayClockColorDefault
+        self.dateTitleColor = self.dateTitleColorDefault
+        self.systemInfoColor = self.systemInfoColorDefault
+        self.setColorButtonColor(self.colorBtnDayClock, self.dayClockColor)
+        self.setColorButtonColor(self.colorBtnDateTitle, self.dateTitleColor)
+        self.setColorButtonColor(self.colorBtnSystemInfo, self.systemInfoColor)
 
     # Get conky settings for the current user
     def getSettings(self):
         if exists(self.conkyrc):
-            self.log.write(_("Start reading existing settings"), 'conky.getSettings', 'info')
+            self.log.write("Start reading existing settings", 'conky.getSettings', 'info')
             self.cmbPrefAction.set_active(0)
             # TODO: Read values from conkyrc, and show these in the gui
             conkyrcCont = functions.getFileContents(self.conkyrc)
@@ -280,7 +383,6 @@ class Conky(object):
                 if exists(self.desktop):
                     self.log.write("Autostart found", 'conky.getSettings', 'debug')
                     self.chkPrefAutostart.set_active(True)
-
                 try:
                     sleepStr = functions.findRegExpInString('\d{2,}', startCont)
                     if sleepStr:
@@ -332,18 +434,18 @@ class Conky(object):
                 else:
                     self.txtNetwUpSpeed.set_text(self.defaultSpeed)
 
-                if functions.findRegExpInString('<inet', conkyrcCont):
+                if functions.findRegExpInString(self.lanlbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check LAN IP", 'conky.getSettings', 'debug')
                     self.chkNetwLanIP.set_active(True)
-                if functions.findRegExpInString('dyndns', conkyrcCont):
+                if functions.findRegExpInString('pre_exec myip', conkyrcCont):
                     self.log.write("Check IP", 'conky.getSettings', 'debug')
                     self.chkNetwIP.set_active(True)
 
                 # System
-                if functions.findRegExpInString('Core\s\d', conkyrcCont):
+                if functions.findRegExpInString(self.corelbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check cores", 'conky.getSettings', 'debug')
                     self.chkSysCores.set_active(True)
-                if functions.findRegExpInString('hddtemp', conkyrcCont, 0, True):
+                if functions.findRegExpInString(self.hdlbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check HD temperature", 'conky.getSettings', 'debug')
                     self.chkSysHd.set_active(True)
 
@@ -354,15 +456,45 @@ class Conky(object):
                     self.log.write("Using temperature unit Celsius", 'conky.getSettings', 'debug')
                     self.cmbSysTempUnit.set_active(0)
 
-                if functions.findRegExpInString('cpu\s+fan', conkyrcCont):
+                if functions.findRegExpInString(self.cpulbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check CPU fan", 'conky.getSettings', 'debug')
                     self.chkSysCpuFan.set_active(True)
-                if functions.findRegExpInString('chassis\s+fan', conkyrcCont):
+                if functions.findRegExpInString(self.chassislbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check chassis fan", 'conky.getSettings', 'debug')
                     self.chkSysChassisFan.set_active(True)
-                if functions.findRegExpInString('kernel', conkyrcCont, 0, True):
+                if functions.findRegExpInString(self.kernellbl, conkyrcCont, caseSensitive=True):
                     self.log.write("Check kernel", 'conky.getSettings', 'debug')
                     self.chkSysKernel.set_active(True)
+
+                # Colors
+                hex_color = functions.findRegExpInString('\$\{color\s+([0-9a-zA-Z]{6})\}', conkyrcCont, 1)
+                if hex_color is None:
+                    hex_color = self.dayClockColorDefault
+                else:
+                    hex_color = hex_color.upper()
+                self.log.write("Day and Clock color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.getSettings', 'debug')
+                self.dayClockColor = hex_color
+
+                hex_color = functions.findRegExpInString('\$\{color\s+([0-9a-zA-Z]{6})\}\$\{hr\}', conkyrcCont, 1)
+                if hex_color is None:
+                    hex_color = self.dateTitleColorDefault
+                else:
+                    hex_color = hex_color.upper()
+                self.log.write("Date and Title color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.getSettings', 'debug')
+                self.dateTitleColor = hex_color
+
+                hex_color = functions.findRegExpInString('\$\{color\s+([0-9a-zA-Z]{6})\}\$\{goto', conkyrcCont, 1)
+                if hex_color is None:
+                    hex_color = self.systemInfoColorDefault
+                else:
+                    hex_color = hex_color.upper()
+                self.log.write("System Information color: %(hex_color)s" % {'hex_color': hex_color}, 'conky.getSettings', 'debug')
+                self.systemInfoColor = hex_color
+
+                self.setColorButtonColor(self.colorBtnDayClock, self.dayClockColor)
+                self.setColorButtonColor(self.colorBtnDateTitle, self.dateTitleColor)
+                self.setColorButtonColor(self.colorBtnSystemInfo, self.systemInfoColor)
+
         else:
             self.getDefaultSettings()
 
@@ -372,40 +504,61 @@ class Conky(object):
 
     # Save settings: copy templates, and set values
     def saveSettings(self):
-        self.log.write(_("Save settings..."), 'conky.saveSettings', 'info')
+        self.log.write("Save settings...", 'conky.saveSettings', 'info')
 
-        # Kill Conky, and remove all files
-        self.removeConky()
-        # Wait 5 seconds in the hope conky was stopped
-        sleep(5)
+        # Reset all configuration if one or more colors are equal
+        reset_configuration = False
+        if self.dayClockColor == self.dateTitleColor or \
+           self.dayClockColor == self.systemInfoColor or \
+           self.dateTitleColor == self.systemInfoColor:
+            reset_configuration = True
+
+        self.log.write("Reset configuration = {}".format(reset_configuration), 'conky.saveSettings', 'debug')
+
+        if reset_configuration:
+            # Reset colors
+            self.dayClockColor = self.dayClockColorDefault
+            self.dateTitleColor = self.dateTitleColorDefault
+            self.systemInfoColor = self.systemInfoColorDefault
+            # Kill Conky, and remove all files
+            self.removeConky()
+            # Wait x seconds until conky is stopped
+            max_wait = 5
+            waited = 0
+            while functions.isProcessRunning('conky'):
+                if waited > max_wait:
+                    break
+                sleep(0.5)
+                waited += 0.5
 
         # conkyrc
-        template = join(self.scriptDir, 'cfg/conkyrc')
-        if exists(template):
-            self.log.write("Copy %(template)s to %(conkyrc)s" % {"template": template, "conkyrc" :self.conkyrc}, 'conky.saveSettings', 'debug')
-            shutil.copy2(template, self.conkyrc)
-            functions.chownCurUsr(self.conkyrc)
+        if exists(self.conkyrc_template):
+            if not exists(self.conkyrc):
+                self.log.write("Copy %(template)s to %(conkyrc)s" % {"template": self.conkyrc_template, "conkyrc" :self.conkyrc}, 'conky.saveSettings', 'debug')
+                shutil.copy2(self.conkyrc_template, self.conkyrc)
+                functions.chownCurUsr(self.conkyrc)
         else:
-            self.log.write(_("Conkyrc template not found %(template)s" % {"template": template}), 'conky.saveSettings', 'error')
+            self.log.write("Conkyrc template not found %(template)s" % {"template": self.conkyrc_template}, 'conky.saveSettings', 'error')
 
         # lua
-        template = join(self.scriptDir, 'cfg/clock_rings.lua')
-        if exists(template):
-            if not exists(self.luaDir):
-                os.makedirs(self.luaDir)
-            self.log.write("Copy %(template)s to %(lua)s" % {"template": template, "lua" :self.lua}, 'conky.saveSettings', 'debug')
-            shutil.copy2(template, self.lua)
-            functions.chownCurUsr(self.lua)
+        if exists(self.lua_template):
+            if not exists(self.lua):
+                if not exists(self.luaDir):
+                    os.makedirs(self.luaDir)
+                self.log.write("Copy %(template)s to %(lua)s" % {"template": self.lua_template, "lua" :self.lua}, 'conky.saveSettings', 'debug')
+                shutil.copy2(self.lua_template, self.lua)
+                functions.chownCurUsr(self.lua)
         else:
-            self.log.write(_("Lua template not found %(template)s" % {"template": template}), 'conky.saveSettings', 'error')
+            self.log.write("Lua template not found %(template)s" % {"template": self.lua_template}, 'conky.saveSettings', 'error')
 
         # start script
         template = join(self.scriptDir, 'cfg/conky-start')
         if os.path.exists(template):
-            self.log.write("Copy %(template)s to %(conkyStart)s" % {"template": template, "conkyStart" :self.conkyStart}, 'conky.saveSettings', 'debug')
-            shutil.copy2(template, self.conkyStart)
+            if not exists(self.conkyStart):
+                self.log.write("Copy %(template)s to %(conkyStart)s" % {"template": template, "conkyStart" :self.conkyStart}, 'conky.saveSettings', 'debug')
+                shutil.copy2(template, self.conkyStart)
         else:
-            self.log.write(_("Start script not found %(template)s" % {"template": template}), 'conky.saveSettings', 'error')
+            self.log.write("Start script not found %(template)s" % {"template": template}, 'conky.saveSettings', 'error')
 
         # Download and upload speed
         dl = self.txtNetwDownSpeed.get_text()
@@ -437,9 +590,8 @@ class Conky(object):
 
         # Core temperature
         if self.chkSysCores.get_active():
-            corelbl = _("Core temp")
             self.commandCore = self.commandCore.replace('[TEMPUNIT]', tempUnitStr)
-            self.commandCore = self.commandCore.replace("[CORELABEL]", corelbl)
+            self.commandCore = self.commandCore.replace("[CORELABEL]", self.corelbl)
             self.commandCore = self.commandCore.replace("[SENSORSTR]", sensorsCommand)
             functions.replaceStringInFile('#\s*\[CORE\]', self.commandCore, self.conkyrc)
             self.log.write("Core command added", 'conky.saveSettings', 'debug')
@@ -449,8 +601,7 @@ class Conky(object):
             cpufan = functions.findRegExpInString('cpu\s{0,}fan.*\:', sensors)
             self.log.write("Cpu fan value = %(cpufan)s" % {'cpufan' :str(cpufan)}, 'conky.saveSettings', 'debug')
             if cpufan:
-                cpulbl = _("CPU fan")
-                self.commandCpu = self.commandCpu.replace("[CPULABEL]", cpulbl)
+                self.commandCpu = self.commandCpu.replace("[CPULABEL]", self.cpulbl)
                 self.commandCpu = self.commandCpu.replace('[CPUSTR]', cpufan)
 
                 functions.replaceStringInFile('#\s*\[CPUFAN\]', self.commandCpu, self.conkyrc)
@@ -460,17 +611,15 @@ class Conky(object):
             chafan = functions.findRegExpInString('chassis\s{0,}fan.*\:', sensors)
             self.log.write("Chassis fan value = %(chafan)s" % {'chafan' :str(chafan)}, 'conky.saveSettings', 'debug')
             if chafan:
-                chassislbl = _("Chassis fan")
-                self.commandChassis = self.commandChassis.replace("[CHASSISLABEL]", chassislbl)
+                self.commandChassis = self.commandChassis.replace("[CHASSISLABEL]", self.chassislbl)
                 self.commandChassis = self.commandChassis.replace('[CHASTR]', chafan)
                 functions.replaceStringInFile('#\s*\[CHAFAN\]', self.commandChassis, self.conkyrc)
 
         # HD temperature unit
         if self.chkSysHd.get_active():
             self.log.write("Add HDD temperature to .conkyrc", 'conky.saveSettings', 'debug')
-            hdlbl = _("HD temp")
             self.commandHdd = self.commandHdd.replace('[TEMPUNIT]', tempUnitStr)
-            self.commandHdd = self.commandHdd.replace('[HDLABEL]', hdlbl)
+            self.commandHdd = self.commandHdd.replace('[HDLABEL]', self.hdlbl)
             hddCommand = 'hddtemp -n'
             if tempUnit == 'f':
                 hddCommand = 'hddtemp -n -u f'
@@ -480,22 +629,19 @@ class Conky(object):
         # LAN IP
         if self.chkNetwLanIP.get_active():
             self.log.write("Add LAN IP to .conkyrc", 'conky.saveSettings', 'debug')
-            lanlbl = _("LAN IP")
-            self.commandLanIp = self.commandLanIp.replace("[LANLABEL]", lanlbl)
+            self.commandLanIp = self.commandLanIp.replace("[LANLABEL]", self.lanlbl)
             functions.replaceStringInFile('#\s*\[LANIP\]', self.commandLanIp, self.conkyrc)
 
         # IP
         if self.chkNetwIP.get_active():
             self.log.write("Add IP to .conkyrc", 'conky.saveSettings', 'debug')
-            iplbl = _("IP")
-            self.commandIp = self.commandIp.replace("[IPLABEL]", iplbl)
+            self.commandIp = self.commandIp.replace("[IPLABEL]", self.iplbl)
             functions.replaceStringInFile('#\s*\[IP\]', self.commandIp, self.conkyrc)
 
         # Kernel
         if self.chkSysKernel.get_active():
             self.log.write("Add Kernel to .conkyrc", 'conky.saveSettings', 'debug')
-            kernellbl = _("Kernel")
-            self.commandKernel = self.commandKernel.replace("[KERNELLABEL]", kernellbl)
+            self.commandKernel = self.commandKernel.replace("[KERNELLABEL]", self.kernellbl)
             functions.replaceStringInFile('#\s*\[KERNEL\]', self.commandKernel, self.conkyrc)
 
         # Conky desktop alignment
@@ -516,11 +662,28 @@ class Conky(object):
         functions.replaceStringInFile('\[ETH\]', eth, self.conkyrc)
         functions.replaceStringInFile('\[ETH\]', eth, self.lua)
 
-        # Change color scheme for SolydX
-        if 'solydx' in self.dist.lower():
-            self.log.write("Create orange theme for SolydX", 'conky.saveSettings', 'debug')
-            functions.replaceStringInFile(TEXT_BLUE, TEXT_ORANGE, self.conkyrc)
-            functions.replaceStringInFile(TEXT_BLUE, TEXT_ORANGE, self.lua)
+        # Write colors
+        if self.dayClockColorNew == self.dayClockColor:
+            self.dayClockColorNew = None
+        if self.dateTitleColorNew == self.dateTitleColor:
+            self.dateTitleColorNew = None
+        if self.systemInfoColorNew == self.systemInfoColor:
+            self.systemInfoColorNew = None
+
+        if self.dateTitleColorNew is not None:
+            functions.replaceStringInFile(self.dateTitleColor, self.dateTitleColorNew, self.conkyrc)
+            self.log.write("Replace Date and Title color %s with %s" % (self.dateTitleColor, self.dateTitleColorNew), 'conky.saveSettings', 'info')
+            self.dateTitleColor = self.dateTitleColorNew
+        if self.dayClockColorNew is not None:
+            functions.replaceStringInFile(self.dayClockColor, self.dayClockColorNew, self.conkyrc)
+            functions.replaceStringInFile(self.dayClockColor, self.dayClockColorNew, self.lua)
+            self.log.write("Replace Day and Clock color %s with %s" % (self.dayClockColor, self.dayClockColorNew), 'conky.saveSettings', 'info')
+            self.dayClockColor = self.dayClockColorNew
+        if self.systemInfoColorNew is not None:
+            functions.replaceStringInFile(self.systemInfoColor, self.systemInfoColorNew, self.conkyrc)
+            functions.replaceStringInFile(self.systemInfoColor, self.systemInfoColorNew, self.lua)
+            self.log.write("Replace System Info color %s with %s" % (self.systemInfoColor, self.systemInfoColorNew), 'conky.saveSettings', 'info')
+            self.systemInfoColor = self.systemInfoColorNew
 
         # Automatically start Conky when the user logs in
         if self.chkPrefAutostart.get_active() and not exists(self.desktop):
@@ -534,26 +697,63 @@ class Conky(object):
             functions.makeExecutable(self.desktop)
 
         msg = "SolydXK Conky configuration has finished.\n\nWill now start Conky with the new configuration."
-        MessageDialogSafe(self.window.get_title(), msg, Gtk.MessageType.INFO, self.window).show()
-        self.log.write(_("Save settings done"), 'conky.saveSettings', 'info')
+        MessageDialog(self.window.get_title(), msg)
+        self.log.write("Save settings done", 'conky.saveSettings', 'info')
 
         # Restart Conky
         functions.makeExecutable(self.conkyStart)
-        if functions.isProcessRunning('conky'):
-            os.system('killall conky')
-        os.system('conky &')
+        if reset_configuration:
+            if functions.isProcessRunning('conky'):
+                os.system('killall conky')
+        if not functions.isProcessRunning('conky'):
+            os.system('conky &')
 
     # ===============================================
     # Miscellaneous functions
     # ===============================================
 
+    def getHexColor(self, colorbutton, include_alpha=False):
+        color = colorbutton.get_rgba()
+
+        red = color.red
+        if red <= 1:
+            red = (color.red * 255)
+        green = color.green
+        if green <= 1:
+            green = (color.green * 255)
+        blue = color.blue
+        if blue <= 1:
+            blue = (color.blue * 255)
+        alpha = color.alpha
+        if alpha <= 1:
+            alpha = (color.alpha * 255)
+
+        if include_alpha:
+            hex_color = "%02x%02x%02x%02x" % (red, green, blue, alpha)
+        else:
+            hex_color = "%02x%02x%02x" % (red, green, blue)
+
+        #print((">> rgba = {} {} {} {} is hex {}".format(color.red, color.green, color.blue, color.alpha, hex_color)))
+        return hex_color.upper()
+
+    def setColorButtonColor(self, colorbutton, hex_color):
+        rgba_color = Gdk.RGBA()
+        hex_color = hex_color.strip()
+        if hex_color[0:1] != '#':
+            hex_color = "#%s" % hex_color
+        if rgba_color.parse(hex_color):
+            colorbutton.set_rgba(rgba_color)
+        else:
+            msg = _("Could not set color: %s" % hex_color)
+            WarningDialog(self.btnColors.get_label(), msg)
+
     def removeConky(self):
         if functions.isProcessRunning('conky'):
             os.system('killall conky')
         if exists(self.conkyrc):
-            os.remove(self.conkyrc)
+            os.rename(self.conkyrc, "%s.bak" % self.conkyrc)
         if exists(self.lua):
-            os.remove(self.lua)
+            os.rename(self.lua, "%s.bak" % self.lua)
         if exists(self.desktop):
             os.remove(self.desktop)
         if exists(self.conkyStart):
@@ -569,7 +769,7 @@ class Conky(object):
                 self.log.write("Start program: %(prg)s" % {"prg": urlOrPath}, 'conky.openUrl', 'debug')
                 os.system(urlOrPath)
         else:
-            self.log.write(_("Nothing to open"), 'conky.openUrl', 'error')
+            self.log.write("Nothing to open", 'conky.openUrl', 'error')
 
     # Get the selected index and value from a combo box
     def getActiveComboValue(self, combo):

@@ -18,8 +18,8 @@ own_window yes
 own_window_argb_visual
 own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
 alignment tr
-gap_x 10
-gap_y 105
+gap_x 20
+gap_y 50
 #own_window_type override
 own_window_transparent yes
 border_inner_margin 0
@@ -43,22 +43,22 @@ lua_load ~/.lua/scripts/clock_rings.lua
 lua_draw_hook_pre clock_rings
 
 TEXT
-${voffset -2}${color 00BFFF}${font Ubuntu:size=16}${time %A}${font}${voffset -8}${alignr 55}${color FFFFFF}${font Caviar Dreams:size=38}${time %e}${font}
-${color FFFFFF}${voffset -30}${color FFFFFF}${font Ubuntu:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font Caviar Dreams:size=20}${time %Y}${font}${color 00BFFF}${hr}
-${voffset 180}${font Ubuntu:size=14}${alignr}${pre_exec cat /etc/issue.net}
-${image /usr/share/solydxk/logo.png -p 59,109 -s 80x80}
+${voffset 0}${color 00BFFF}${font Clear Sans:size=16}${time %A}${font}${voffset -18}${alignr 65}${color FFFFFF}${font Clear Sans:size=38}${time %e}${font}
+${color FFFFFF}${voffset -30}${color FFFFFF}${font Clear Sans:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font Clear Sans:size=20}${time %Y}${font}${color FFFFFF}${hr}
+${voffset 165}${font Clear Sans:size=16}${alignr 25}${pre_exec cat /etc/issue.net}
+#${image /usr/share/solydxk/logo.png -p 59,109 -s 80x80}
 
 ${font Sans:size=10}
-${color FFFFFF}${goto 30}${voffset -20}${cpu}%
-${color 00BFFF}${goto 30}[CPU]
-${color FFFFFF}${goto 50}${voffset 30}${memperc}%
-${color 00BFFF}${goto 50}[RAM]
-${color FFFFFF}${goto 75}${voffset 30}${fs_used_perc /}% 
-${color 00BFFF}${goto 75}[DISK]
+${color 00455F}${goto 25}${voffset 5}${cpu}%
+${color 00455F}${goto 25}[CPU]
+${color 00455F}${goto 35}${voffset 35}${memperc}%
+${color 00455F}${goto 35}[RAM]
+${color 00455F}${goto 50}${voffset 35}${fs_used_perc /}% 
+${color 00455F}${goto 50}[DISK]
 # Check netwerk device to use (replace the ETH placeholder with the active network device - check ifconfig)
-${color FFFFFF}${goto 100}${voffset 30}${color FFFFFF}${downspeed [ETH]}
-${color FFFFFF}${goto 100}${color FFFFFF}${upspeed [ETH]}
-${color 00BFFF}${goto 100}[NET]
+${color 00455F}${goto 85}${voffset 35}${color 00455F}${downspeed [ETH]}
+${color 00455F}${goto 85}${color 00455F}${upspeed [ETH]}
+${color 00455F}${goto 85}[NET]
 ${voffset 10}
 # [CORE]
 # [CPUFAN]

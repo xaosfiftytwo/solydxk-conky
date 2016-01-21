@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-11 09:45+0100\n"
+"POT-Creation-Date: 2016-01-21 17:03+0100\n"
 "PO-Revision-Date: 2015-12-09 18:01+0000\n"
 "Last-Translator: Luis Filipe Teixeira <lufilte@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/solydxk/solydxk-conky/"
@@ -20,48 +20,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../usr/lib/solydxk/conky/conky.py:98
+#: ../usr/lib/solydxk/conky/conky.py:123
 #: ../usr/share/applications/solydxk-conky.desktop.in.h:2
 msgid "SolydXK Conky"
 msgstr "SolydXK Conky"
 
-#: ../usr/lib/solydxk/conky/conky.py:99
+#: ../usr/lib/solydxk/conky/conky.py:124
 msgid "Preferences"
 msgstr "Preferências"
 
-#: ../usr/lib/solydxk/conky/conky.py:100
+#: ../usr/lib/solydxk/conky/conky.py:125
 msgid "Network"
 msgstr "Rede"
 
-#: ../usr/lib/solydxk/conky/conky.py:101
+#: ../usr/lib/solydxk/conky/conky.py:126
 msgid "System"
 msgstr "Sistema"
 
-#: ../usr/lib/solydxk/conky/conky.py:102
+#: ../usr/lib/solydxk/conky/conky.py:127
+msgid "Colors"
+msgstr ""
+
+#: ../usr/lib/solydxk/conky/conky.py:128
 msgid "Save"
 msgstr "Salvar"
 
-#: ../usr/lib/solydxk/conky/conky.py:103
+#: ../usr/lib/solydxk/conky/conky.py:129
 msgid "Action"
 msgstr "Ação"
 
-#: ../usr/lib/solydxk/conky/conky.py:104
+#: ../usr/lib/solydxk/conky/conky.py:130
 msgid "Apply"
 msgstr "Aplicar"
 
-#: ../usr/lib/solydxk/conky/conky.py:105
+#: ../usr/lib/solydxk/conky/conky.py:131
 msgid "Autostart"
 msgstr "Inicio automatico"
 
-#: ../usr/lib/solydxk/conky/conky.py:106
+#: ../usr/lib/solydxk/conky/conky.py:132
 msgid "Autostart Conky on login."
 msgstr "Iniciar automaticamente o Conky no arranque"
 
-#: ../usr/lib/solydxk/conky/conky.py:107
+#: ../usr/lib/solydxk/conky/conky.py:133
 msgid "Sleep"
 msgstr "Dormir"
 
-#: ../usr/lib/solydxk/conky/conky.py:108
+#: ../usr/lib/solydxk/conky/conky.py:134
 msgid ""
 "Seconds to wait before starting Conky.\n"
 "Default is 20 seconds."
@@ -69,27 +73,27 @@ msgstr ""
 "Segundos de espera antes de iniciar Conky.\n"
 "O padrão é 20 segundos."
 
-#: ../usr/lib/solydxk/conky/conky.py:109
+#: ../usr/lib/solydxk/conky/conky.py:135
 msgid "Align"
 msgstr "Alinhar"
 
-#: ../usr/lib/solydxk/conky/conky.py:110
+#: ../usr/lib/solydxk/conky/conky.py:136
 msgid "Conky alignment on the desktop."
 msgstr "Alinhamento do Conky no ambiente de trabalho."
 
-#: ../usr/lib/solydxk/conky/conky.py:111
+#: ../usr/lib/solydxk/conky/conky.py:137
 msgid "Interface"
 msgstr "Interface"
 
-#: ../usr/lib/solydxk/conky/conky.py:112
+#: ../usr/lib/solydxk/conky/conky.py:138
 msgid "Auto detected (use ifconfig)."
 msgstr "Auto detectado (use ifconfig)."
 
-#: ../usr/lib/solydxk/conky/conky.py:113
+#: ../usr/lib/solydxk/conky/conky.py:139
 msgid "Download speed"
 msgstr "Velocidade de transferência"
 
-#: ../usr/lib/solydxk/conky/conky.py:114
+#: ../usr/lib/solydxk/conky/conky.py:140
 msgid ""
 "Test your download and upload speed\n"
 "with speedtest.net (in Kilobytes)."
@@ -97,156 +101,126 @@ msgstr ""
 "Teste a velocidade do seu download e upload \n"
 "com speedtest.net (em kilobytes)."
 
-#: ../usr/lib/solydxk/conky/conky.py:115
+#: ../usr/lib/solydxk/conky/conky.py:141
 msgid "Upload speed"
 msgstr "Velocidade de upload"
 
-#: ../usr/lib/solydxk/conky/conky.py:117 ../usr/lib/solydxk/conky/conky.py:483
+#: ../usr/lib/solydxk/conky/conky.py:143 ../usr/lib/solydxk/conky/conky.py:160
 msgid "LAN IP"
 msgstr "LAN IP"
 
-#: ../usr/lib/solydxk/conky/conky.py:118 ../usr/lib/solydxk/conky/conky.py:121
+#: ../usr/lib/solydxk/conky/conky.py:144 ../usr/lib/solydxk/conky/conky.py:147
 msgid "Check to show these items."
 msgstr "Verifique para mostrar esses itens."
 
-#: ../usr/lib/solydxk/conky/conky.py:119 ../usr/lib/solydxk/conky/conky.py:490
+#: ../usr/lib/solydxk/conky/conky.py:145 ../usr/lib/solydxk/conky/conky.py:161
 msgid "IP"
 msgstr "IP"
 
-#: ../usr/lib/solydxk/conky/conky.py:120
+#: ../usr/lib/solydxk/conky/conky.py:146
 msgid "Core temperature"
 msgstr "Temperatura do core"
 
-#: ../usr/lib/solydxk/conky/conky.py:122
+#: ../usr/lib/solydxk/conky/conky.py:148
 msgid "HD temperature"
 msgstr "Temperatura do HD"
 
-#: ../usr/lib/solydxk/conky/conky.py:123
+#: ../usr/lib/solydxk/conky/conky.py:149
 msgid "Temperature unit"
 msgstr "Unidade de temperatura"
 
-#: ../usr/lib/solydxk/conky/conky.py:124
+#: ../usr/lib/solydxk/conky/conky.py:150
 msgid "CPU fan speed"
 msgstr "Velocidade do ventilador CPU"
 
-#: ../usr/lib/solydxk/conky/conky.py:125
+#: ../usr/lib/solydxk/conky/conky.py:151
 msgid "Chassis fan speed"
 msgstr "Velocidade do ventilador Chassis"
 
-#: ../usr/lib/solydxk/conky/conky.py:126 ../usr/lib/solydxk/conky/conky.py:497
+#: ../usr/lib/solydxk/conky/conky.py:152 ../usr/lib/solydxk/conky/conky.py:162
 msgid "Kernel"
 msgstr "Kernel"
 
-#: ../usr/lib/solydxk/conky/conky.py:129
-msgid "Start"
-msgstr "Iniciar"
+#: ../usr/lib/solydxk/conky/conky.py:153
+msgid "Date and title"
+msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:129
-msgid "Stop"
-msgstr "Parar"
+#: ../usr/lib/solydxk/conky/conky.py:154
+msgid "Day and clock"
+msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:129
-msgid "Remove"
-msgstr "Remover"
+#: ../usr/lib/solydxk/conky/conky.py:155
+msgid "System information"
+msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:137
-msgid "Right"
-msgstr "Direita"
-
-#: ../usr/lib/solydxk/conky/conky.py:137
-msgid "Left"
-msgstr "Esquerda"
-
-#: ../usr/lib/solydxk/conky/conky.py:141
-msgid "Celsius"
-msgstr "Celsius"
-
-#: ../usr/lib/solydxk/conky/conky.py:141
-msgid "Fahrenheit"
-msgstr "Fahrenheit"
-
-#: ../usr/lib/solydxk/conky/conky.py:221
-msgid "Conky started"
-msgstr "Conky iniciou"
-
-#: ../usr/lib/solydxk/conky/conky.py:226
-msgid "Conky stopped"
-msgstr "Conky parou"
-
-#: ../usr/lib/solydxk/conky/conky.py:228
-msgid "Conky is not running"
-msgstr "Conky não está em execução"
-
-#: ../usr/lib/solydxk/conky/conky.py:233
-msgid "Conky removed"
-msgstr "Conky removido"
-
-#: ../usr/lib/solydxk/conky/conky.py:245
-msgid "Get default settings"
-msgstr "Obter configurações padrão"
-
-#: ../usr/lib/solydxk/conky/conky.py:268
-msgid "Start reading existing settings"
-msgstr "Começar a ler as configurações existentes"
-
-#: ../usr/lib/solydxk/conky/conky.py:375
-msgid "Save settings..."
-msgstr "Salvar configurações..."
-
-#: ../usr/lib/solydxk/conky/conky.py:389
-#, python-format
-msgid "Conkyrc template not found %(template)s"
-msgstr "Modelo .conkyrc não encontrado %(template)s"
-
-#: ../usr/lib/solydxk/conky/conky.py:400
-#, python-format
-msgid "Lua template not found %(template)s"
-msgstr "Modelo Lua não encontrado %(template)s"
-
-#: ../usr/lib/solydxk/conky/conky.py:408
-#, python-format
-msgid "Start script not found %(template)s"
-msgstr "Script de inicio não encontrado %(template)s"
-
-#: ../usr/lib/solydxk/conky/conky.py:433
-msgid "CPU"
-msgstr "CPU"
-
-#: ../usr/lib/solydxk/conky/conky.py:434
-msgid "RAM"
-msgstr "RAM"
-
-#: ../usr/lib/solydxk/conky/conky.py:435
-msgid "Disk"
-msgstr "Disco"
-
-#: ../usr/lib/solydxk/conky/conky.py:436
-msgid "Net"
-msgstr "Net"
-
-#: ../usr/lib/solydxk/conky/conky.py:440
+#: ../usr/lib/solydxk/conky/conky.py:156
 msgid "Core temp"
 msgstr "Temperatura do Core"
 
-#: ../usr/lib/solydxk/conky/conky.py:452
+#: ../usr/lib/solydxk/conky/conky.py:157
 msgid "CPU fan"
 msgstr "Ventilador da CPU"
 
-#: ../usr/lib/solydxk/conky/conky.py:463
+#: ../usr/lib/solydxk/conky/conky.py:158
 msgid "Chassis fan"
 msgstr "Ventilador do chassi"
 
-#: ../usr/lib/solydxk/conky/conky.py:471
+#: ../usr/lib/solydxk/conky/conky.py:159
 msgid "HD temp"
 msgstr "Temp HD"
 
-#: ../usr/lib/solydxk/conky/conky.py:538
-msgid "Save settings done"
-msgstr "Salvar configurações concluído"
+#: ../usr/lib/solydxk/conky/conky.py:163
+msgid "Reset"
+msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:572
-msgid "Nothing to open"
-msgstr "Nada a abrir"
+#: ../usr/lib/solydxk/conky/conky.py:169
+msgid "Start"
+msgstr "Iniciar"
+
+#: ../usr/lib/solydxk/conky/conky.py:169
+msgid "Stop"
+msgstr "Parar"
+
+#: ../usr/lib/solydxk/conky/conky.py:169
+msgid "Remove"
+msgstr "Remover"
+
+#: ../usr/lib/solydxk/conky/conky.py:177
+msgid "Right"
+msgstr "Direita"
+
+#: ../usr/lib/solydxk/conky/conky.py:177
+msgid "Left"
+msgstr "Esquerda"
+
+#: ../usr/lib/solydxk/conky/conky.py:181
+msgid "Celsius"
+msgstr "Celsius"
+
+#: ../usr/lib/solydxk/conky/conky.py:181
+msgid "Fahrenheit"
+msgstr "Fahrenheit"
+
+#: ../usr/lib/solydxk/conky/conky.py:586
+msgid "CPU"
+msgstr "CPU"
+
+#: ../usr/lib/solydxk/conky/conky.py:587
+msgid "RAM"
+msgstr "RAM"
+
+#: ../usr/lib/solydxk/conky/conky.py:588
+msgid "Disk"
+msgstr "Disco"
+
+#: ../usr/lib/solydxk/conky/conky.py:589
+msgid "Net"
+msgstr "Net"
+
+#: ../usr/lib/solydxk/conky/conky.py:747
+#, python-format
+msgid "Could not set color: %s"
+msgstr ""
 
 #: ../usr/lib/solydxk/conky/execcmd.py:20
 #, python-format
@@ -256,3 +230,39 @@ msgstr "Comando para executar: %(cmd)s"
 #: ../usr/share/applications/solydxk-conky.desktop.in.h:1
 msgid "SolydXK Conky configuration"
 msgstr "Configuração SolydXK Conky"
+
+#~ msgid "Conky started"
+#~ msgstr "Conky iniciou"
+
+#~ msgid "Conky stopped"
+#~ msgstr "Conky parou"
+
+#~ msgid "Conky is not running"
+#~ msgstr "Conky não está em execução"
+
+#~ msgid "Conky removed"
+#~ msgstr "Conky removido"
+
+#~ msgid "Get default settings"
+#~ msgstr "Obter configurações padrão"
+
+#~ msgid "Start reading existing settings"
+#~ msgstr "Começar a ler as configurações existentes"
+
+#~ msgid "Save settings..."
+#~ msgstr "Salvar configurações..."
+
+#~ msgid "Conkyrc template not found %(template)s"
+#~ msgstr "Modelo .conkyrc não encontrado %(template)s"
+
+#~ msgid "Lua template not found %(template)s"
+#~ msgstr "Modelo Lua não encontrado %(template)s"
+
+#~ msgid "Start script not found %(template)s"
+#~ msgstr "Script de inicio não encontrado %(template)s"
+
+#~ msgid "Save settings done"
+#~ msgstr "Salvar configurações concluído"
+
+#~ msgid "Nothing to open"
+#~ msgstr "Nada a abrir"

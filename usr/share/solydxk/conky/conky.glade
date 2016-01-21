@@ -2,6 +2,30 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.4"/>
+  <object class="GtkListStore" id="lsAction">
+    <columns>
+      <!-- column-name action -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsAlign">
+    <columns>
+      <!-- column-name align -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsSleep">
+    <columns>
+      <!-- column-name seconds -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="lsTemp">
+    <columns>
+      <!-- column-name temp -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="conkyWindow">
     <property name="width_request">600</property>
     <property name="can_focus">False</property>
@@ -58,6 +82,20 @@
                 <property name="use_underline">True</property>
                 <property name="icon_name">applications-system</property>
                 <signal name="clicked" handler="on_btnSystem_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="btnColors">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">_Colors</property>
+                <property name="use_underline">True</property>
+                <property name="icon_name">color</property>
+                <signal name="clicked" handler="on_btnColors_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -283,7 +321,7 @@ Default is 20 seconds.</property>
                       <object class="GtkLabel" id="nbPreferences">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">page 1</property>
+                        <property name="label" translatable="yes">Preferences</property>
                       </object>
                       <packing>
                         <property name="tab_fill">False</property>
@@ -488,7 +526,7 @@ with speed.net (in Kilobytes).</property>
                       <object class="GtkLabel" id="nbNetwork">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">page 2</property>
+                        <property name="label" translatable="yes">Network</property>
                       </object>
                       <packing>
                         <property name="position">1</property>
@@ -731,10 +769,177 @@ with speed.net (in Kilobytes).</property>
                       <object class="GtkLabel" id="nbSystem">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">page 3</property>
+                        <property name="label" translatable="yes">System</property>
                       </object>
                       <packing>
                         <property name="position">2</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkGrid" id="grdColors">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">10</property>
+                        <property name="column_spacing">10</property>
+                        <property name="column_homogeneous">True</property>
+                        <child>
+                          <object class="GtkLabel" id="lblDateTitle">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Date and title</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lblDayClock">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Day and clock</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="lblSystemInfo">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">System information</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkColorButton" id="colorBtnDateTitle">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="color-set" handler="on_colorBtnDateTitle_color_set" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkColorButton" id="colorBtnDayClock">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="color-set" handler="on_colorBtnDayClock_color_set" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkColorButton" id="colorBtnSystemInfo">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="color-set" handler="on_colorBtnSystemInfo_color_set" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label8">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="vexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label13">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="vexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label12">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="vexpand">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="btnResetDateTitle">
+                            <property name="label" translatable="yes">Reset</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="on_btnResetDateTitle_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="btnResetDayClock">
+                            <property name="label" translatable="yes">Reset</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="on_btnResetDayClock_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="btnResetSystemInfo">
+                            <property name="label" translatable="yes">Reset</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <signal name="clicked" handler="on_btnResetSystemInfo_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel" id="nbColors">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Colors</property>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
@@ -812,29 +1017,5 @@ with speed.net (in Kilobytes).</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="lsAction">
-    <columns>
-      <!-- column-name action -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsAlign">
-    <columns>
-      <!-- column-name align -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsSleep">
-    <columns>
-      <!-- column-name seconds -->
-      <column type="gint"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="lsTemp">
-    <columns>
-      <!-- column-name temp -->
-      <column type="gchararray"/>
-    </columns>
   </object>
 </interface>

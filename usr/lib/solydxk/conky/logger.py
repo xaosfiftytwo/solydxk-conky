@@ -3,15 +3,16 @@
 import os
 import pwd
 import logging
-import functions
-from gi.repository import Gtk
-from dialogs import MessageDialog
+import re
+import sys
+from shutil import move
+from dialogs import ErrorDialog
 from treeview import TreeViewHandler
 
 
 class Logger():
 
-    def __init__(self, logPath='', defaultLogLevel='debug', addLogTime=True, rtObject=None, parent=None):
+    def __init__(self, logPath='', defaultLogLevel='debug', addLogTime=True, rtObject=None, parent=None, maxSizeKB=None):
         self.logPath = logPath
         if self.logPath != '':
             if self.logPath[:1] != '/':
@@ -20,13 +21,21 @@ class Logger():
         self.defaultLevel = getattr(logging, defaultLogLevel.upper())
         self.logTime = addLogTime
         self.rtobject = rtObject
-        self.typeString = functions.getTypeString(self.rtobject)
+        self.typeString = self.getTypeString(self.rtobject)
         self.parent = parent
+        self.maxSizeKB = maxSizeKB
 
         if self.logPath == '':
             # Log only to console
             logging.basicConfig(level=self.defaultLevel, format='%(levelname)-10s%(message)s')
         else:
+            if os.path.exists(self.logPath) and self.maxSizeKB is not None:
+                b = os.path.getsize(self.logPath)
+                if b > self.maxSizeKB * 1024:
+                    old = "%s.old" % self.logPath
+                    if os.path.exists(old):
+                        os.remove(old)
+                    move(self.logPath, "%s.old" % self.logPath)
             # Set basic configuration
             formatStr = '%(name)-30s%(levelname)-10s%(message)s'
             dateFmtStr = None
@@ -63,17 +72,19 @@ class Logger():
                 myLogger.error(message)
                 self.rtobjectWrite(message)
                 if showErrorDialog:
-                    MessageDialog('Error', message, Gtk.MessageType.ERROR, self.parent).show()
+                    ErrorDialog('Error', message)
             elif logLevel == 'critical':
                 myLogger.critical(message)
                 self.rtobjectWrite(message)
                 if showErrorDialog:
-                    MessageDialog('Critical', message, Gtk.MessageType.ERROR, self.parent).show()
+                    ErrorDialog('Critical', message)
             elif logLevel == 'exception':
                 myLogger.exception(message)
                 self.rtobjectWrite(message)
                 if showErrorDialog:
-                    MessageDialog('Exception', message, Gtk.MessageType.ERROR, self.parent).show()
+                    ErrorDialog('Exception', message)
+            # Flush now
+            sys.stdout.flush()
 
     # Return messge to given object
     def rtobjectWrite(self, message):
@@ -84,10 +95,24 @@ class Logger():
                 tvHandler = TreeViewHandler(self.rtobject)
                 tvHandler.fillTreeview([message], ['str'], [-1], 0, 400, False, True, True, fontSize=10000)
             elif 'statusbar' in self.typeString.lower():
-                functions.pushMessage(self.rtobject, message)
+                self.pushMessage(message)
             else:
                 # For obvious reasons: do not log this...
-                print('Return object type not implemented: %s' % self.typeString)
+                print(('Return object type not implemented: %s' % self.typeString))
+
+    # Return the type string of a object
+    def getTypeString(self, object):
+        tpString = ''
+        tp = str(type(object))
+        matchObj = re.search("'(.*)'", tp)
+        if matchObj:
+            tpString = matchObj.group(1)
+        return tpString
+
+    def pushMessage(self, message):
+        if message is not None:
+            context = self.rtobject.get_context_id('message')
+            self.rtobject.push(context, message)
 
 
 # Test
