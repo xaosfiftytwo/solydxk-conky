@@ -28,20 +28,20 @@ function valid_ip()
 
 # Try three different sources
 IP=$(curl -f solydxk.com/ip.php)
-if valid_ip $IP; then
-  echo $IP
+if valid_ip "$IP"; then
+  echo "$IP"
   exit
 fi
 
 sleep 10
 IP=$(curl -f ident.me)
-if valid_ip $IP; then
-  echo $IP
+if valid_ip "$IP"; then
+  echo "$IP"
   exit
 fi
 
 sleep 10
 IP=$(curl -f checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//')
-if valid_ip $IP; then
-  echo $IP
+if valid_ip "$IP"; then
+  echo "$IP"
 fi
