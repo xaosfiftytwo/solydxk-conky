@@ -144,8 +144,8 @@ settings_table = {
     },
     {
         name='downspeedf',
-        arg='wlan0',
-        max=30000,
+        arg='[ETH]',
+        max=[DSPEED],
         bg_colour=0xffffff,
         bg_alpha=0.4,
         fg_colour=0x842900,
@@ -158,8 +158,8 @@ settings_table = {
     },
     {
         name='upspeedf',
-        arg='wlan0',
-        max=3000,
+        arg='[ETH]',
+        max=[USPEED],
         bg_colour=0xffffff,
         bg_alpha=0.4,
         fg_colour=0xffffff,

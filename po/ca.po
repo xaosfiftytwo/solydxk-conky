@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 17:03+0100\n"
-"PO-Revision-Date: 2015-10-23 12:20+0000\n"
-"Last-Translator: Eduard Selma <selma@tinet.cat>\n"
+"POT-Creation-Date: 2016-01-25 07:23+0100\n"
+"PO-Revision-Date: 2016-01-22 10:25+0000\n"
+"Last-Translator: Arjen Balfoort <schoelje@solydxk.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/solydxk/solydxk-conky/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -200,23 +200,23 @@ msgstr "Celsius "
 msgid "Fahrenheit"
 msgstr "Fahrenheit "
 
-#: ../usr/lib/solydxk/conky/conky.py:586
+#: ../usr/lib/solydxk/conky/conky.py:567
 msgid "CPU"
 msgstr "CPU "
 
-#: ../usr/lib/solydxk/conky/conky.py:587
+#: ../usr/lib/solydxk/conky/conky.py:568
 msgid "RAM"
 msgstr "RAM "
 
-#: ../usr/lib/solydxk/conky/conky.py:588
+#: ../usr/lib/solydxk/conky/conky.py:569
 msgid "Disk"
 msgstr "Disc "
 
-#: ../usr/lib/solydxk/conky/conky.py:589
+#: ../usr/lib/solydxk/conky/conky.py:570
 msgid "Net"
 msgstr "Xarxa "
 
-#: ../usr/lib/solydxk/conky/conky.py:747
+#: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
 msgstr ""
@@ -229,39 +229,3 @@ msgstr "Ordre a executar: %(cmd)s "
 #: ../usr/share/applications/solydxk-conky.desktop.in.h:1
 msgid "SolydXK Conky configuration"
 msgstr "Configuració de SolydXK Conky "
-
-#~ msgid "Conky started"
-#~ msgstr "Conky engegat "
-
-#~ msgid "Conky stopped"
-#~ msgstr "Conky aturat "
-
-#~ msgid "Conky is not running"
-#~ msgstr "Conky no s'executa "
-
-#~ msgid "Conky removed"
-#~ msgstr "Conky eliminat "
-
-#~ msgid "Get default settings"
-#~ msgstr "Usa els paràmetres per omissió "
-
-#~ msgid "Start reading existing settings"
-#~ msgstr "Comença a llegir les paràmetres actuals "
-
-#~ msgid "Save settings..."
-#~ msgstr "Desa els paràmetres... "
-
-#~ msgid "Conkyrc template not found %(template)s"
-#~ msgstr "No trobo la plantilla de Conky %(template)s "
-
-#~ msgid "Lua template not found %(template)s"
-#~ msgstr "No trobo la plantilla Lua %(template)s "
-
-#~ msgid "Start script not found %(template)s"
-#~ msgstr "No trobo l'script d'arrencada %(template)s "
-
-#~ msgid "Save settings done"
-#~ msgstr "Desats els paràmetres "
-
-#~ msgid "Nothing to open"
-#~ msgstr "No hi ha res per obrir "

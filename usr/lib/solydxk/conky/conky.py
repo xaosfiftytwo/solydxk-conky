@@ -26,7 +26,7 @@ gettext.install('solydxk-conky')
 menuItems = ['preferences', 'network', 'system', 'colors']
 
 # Default colors
-DAY_CLOCK_K = '00BFFF'
+DAY_CLOCK_K = '009BD4'
 DAY_CLOCK_X = 'FF7F01'
 DATE_TITLE_K = 'FFFFFF'
 DATE_TITLE_X = 'FFFFFF'
@@ -276,17 +276,16 @@ class Conky(object):
         if action:
             if action[0] == 0:
                 # Start
-                if functions.isProcessRunning('conky'):
-                    os.system('killall conky')
-                os.system('conky &')
-                self.log.write("Conky started", 'conky.on_btnPrefActionApply_clicked', 'info')
+                if self.startConky():
+                    self.log.write("Conky started", 'conky.on_btnPrefActionApply_clicked', 'info')
+                else:
+                    self.log.write("Could not start Conky", 'conky.on_btnPrefActionApply_clicked', 'warning')
             elif action[0] == 1:
                 # Stop
-                if functions.isProcessRunning('conky'):
-                    os.system('killall conky')
+                if self.stopConky():
                     self.log.write("Conky stopped", 'conky.on_btnPrefActionApply_clicked', 'info')
                 else:
-                    self.log.write("Conky is not running", 'conky.on_btnPrefActionApply_clicked', 'info')
+                    self.log.write("Could not stop Conky", 'conky.on_btnPrefActionApply_clicked', 'warning')
             elif action[0] == 2:
                 # Remove
                 self.removeConky()
@@ -348,7 +347,7 @@ class Conky(object):
         if eth is None:
             eth = 'eth0'
         self.txtNetwInterface.set_text(eth)
-        self.txtNetwDownSpeed.set_text(self.defaultSpeed)
+        self.txtNetwDownSpeed.set_text("%s0" % self.defaultSpeed)
         self.txtNetwUpSpeed.set_text(self.defaultSpeed)
         self.chkNetwLanIP.set_active(True)
         self.chkNetwIP.set_active(True)
@@ -420,14 +419,14 @@ class Conky(object):
                         eth = 'eth0'
                     self.txtNetwInterface.set_text()
 
-                dl = functions.findRegExpInString('downspeedf.*\n.*\n,*[a-z\=\s]*(\d*)', luaCont, 1)
+                dl = functions.findRegExpInString('downspeedf.*\n.*\n,*[a-z\max=\s]*(\d*)', luaCont, 1)
                 if dl:
                     self.log.write("Current download speed: %(dl)s" % {'dl': dl}, 'conky.getSettings', 'debug')
                     self.txtNetwDownSpeed.set_text(dl)
                 else:
-                    self.txtNetwDownSpeed.set_text(self.defaultSpeed)
+                    self.txtNetwDownSpeed.set_text("%s0" % self.defaultSpeed)
 
-                ul = functions.findRegExpInString('upspeedf.*\n.*\n,*[a-z\=\s]*(\d*)', luaCont, 1)
+                ul = functions.findRegExpInString('upspeedf.*\n.*\n,*[a-z\max=\s]*(\d*)', luaCont, 1)
                 if ul:
                     self.log.write("Current upload speed: %(ul)s" % {'ul': ul}, 'conky.getSettings', 'debug')
                     self.txtNetwUpSpeed.set_text(ul)
@@ -506,30 +505,12 @@ class Conky(object):
     def saveSettings(self):
         self.log.write("Save settings...", 'conky.saveSettings', 'info')
 
-        # Reset all configuration if one or more colors are equal
-        reset_configuration = False
-        if self.dayClockColor == self.dateTitleColor or \
-           self.dayClockColor == self.systemInfoColor or \
-           self.dateTitleColor == self.systemInfoColor:
-            reset_configuration = True
-
-        self.log.write("Reset configuration = {}".format(reset_configuration), 'conky.saveSettings', 'debug')
-
-        if reset_configuration:
-            # Reset colors
-            self.dayClockColor = self.dayClockColorDefault
-            self.dateTitleColor = self.dateTitleColorDefault
-            self.systemInfoColor = self.systemInfoColorDefault
-            # Kill Conky, and remove all files
-            self.removeConky()
-            # Wait x seconds until conky is stopped
-            max_wait = 5
-            waited = 0
-            while functions.isProcessRunning('conky'):
-                if waited > max_wait:
-                    break
-                sleep(0.5)
-                waited += 0.5
+        # Reset colors
+        self.dayClockColor = self.dayClockColorDefault
+        self.dateTitleColor = self.dateTitleColorDefault
+        self.systemInfoColor = self.systemInfoColorDefault
+        # Kill Conky, and remove all files
+        self.removeConky()
 
         # conkyrc
         if exists(self.conkyrc_template):
@@ -702,15 +683,38 @@ class Conky(object):
 
         # Restart Conky
         functions.makeExecutable(self.conkyStart)
-        if reset_configuration:
-            if functions.isProcessRunning('conky'):
-                os.system('killall conky')
-        if not functions.isProcessRunning('conky'):
-            os.system('conky &')
+        self.startConky()
 
     # ===============================================
     # Miscellaneous functions
     # ===============================================
+
+    def startConky(self):
+        max_wait = 5
+        wait_cnt = 0
+        if self.stopConky():
+            os.system('conky &')
+            while not functions.isProcessRunning('conky'):
+                sleep(1)
+                wait_cnt += 1
+                if wait_cnt >= max_wait:
+                    break
+        if functions.isProcessRunning('conky'):
+            return True
+        return False
+
+    def stopConky(self):
+        max_wait = 5
+        wait_cnt = 0
+        os.system('killall conky')
+        while functions.isProcessRunning('conky'):
+            sleep(1)
+            wait_cnt += 1
+            if wait_cnt >= max_wait:
+                break
+        if not functions.isProcessRunning('conky'):
+            return True
+        return False
 
     def getHexColor(self, colorbutton, include_alpha=False):
         color = colorbutton.get_rgba()
@@ -748,8 +752,7 @@ class Conky(object):
             WarningDialog(self.btnColors.get_label(), msg)
 
     def removeConky(self):
-        if functions.isProcessRunning('conky'):
-            os.system('killall conky')
+        self.stopConky()
         if exists(self.conkyrc):
             os.rename(self.conkyrc, "%s.bak" % self.conkyrc)
         if exists(self.lua):

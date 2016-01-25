@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 17:07+0100\n"
+"POT-Creation-Date: 2016-01-25 07:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,23 +194,23 @@ msgstr ""
 msgid "Fahrenheit"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:586
+#: ../usr/lib/solydxk/conky/conky.py:567
 msgid "CPU"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:587
+#: ../usr/lib/solydxk/conky/conky.py:568
 msgid "RAM"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:588
+#: ../usr/lib/solydxk/conky/conky.py:569
 msgid "Disk"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:589
+#: ../usr/lib/solydxk/conky/conky.py:570
 msgid "Net"
 msgstr ""
 
-#: ../usr/lib/solydxk/conky/conky.py:747
+#: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
 msgstr ""

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Luis Filipe Teixeira <lufilte@gmail.com>, 2015
-# Nuno Duarte <nuno.passiano@gmail.com>, 2015
+# Luis Filipe Teixeira <lufilte@gmail.com>, 2015-2016
+# Nuno Duarte <inactive+nuno.passiano@transifex.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 17:03+0100\n"
-"PO-Revision-Date: 2015-12-09 18:01+0000\n"
+"POT-Creation-Date: 2016-01-25 07:23+0100\n"
+"PO-Revision-Date: 2016-01-25 00:50+0000\n"
 "Last-Translator: Luis Filipe Teixeira <lufilte@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/solydxk/solydxk-conky/"
 "language/pt/)\n"
@@ -39,7 +39,7 @@ msgstr "Sistema"
 
 #: ../usr/lib/solydxk/conky/conky.py:127
 msgid "Colors"
-msgstr ""
+msgstr "Cores"
 
 #: ../usr/lib/solydxk/conky/conky.py:128
 msgid "Save"
@@ -143,15 +143,15 @@ msgstr "Kernel"
 
 #: ../usr/lib/solydxk/conky/conky.py:153
 msgid "Date and title"
-msgstr ""
+msgstr "Data e título"
 
 #: ../usr/lib/solydxk/conky/conky.py:154
 msgid "Day and clock"
-msgstr ""
+msgstr "Dia e relógio"
 
 #: ../usr/lib/solydxk/conky/conky.py:155
 msgid "System information"
-msgstr ""
+msgstr "Informação de sistema"
 
 #: ../usr/lib/solydxk/conky/conky.py:156
 msgid "Core temp"
@@ -171,7 +171,7 @@ msgstr "Temp HD"
 
 #: ../usr/lib/solydxk/conky/conky.py:163
 msgid "Reset"
-msgstr ""
+msgstr "Repor"
 
 #: ../usr/lib/solydxk/conky/conky.py:169
 msgid "Start"
@@ -201,26 +201,26 @@ msgstr "Celsius"
 msgid "Fahrenheit"
 msgstr "Fahrenheit"
 
-#: ../usr/lib/solydxk/conky/conky.py:586
+#: ../usr/lib/solydxk/conky/conky.py:567
 msgid "CPU"
 msgstr "CPU"
 
-#: ../usr/lib/solydxk/conky/conky.py:587
+#: ../usr/lib/solydxk/conky/conky.py:568
 msgid "RAM"
 msgstr "RAM"
 
-#: ../usr/lib/solydxk/conky/conky.py:588
+#: ../usr/lib/solydxk/conky/conky.py:569
 msgid "Disk"
 msgstr "Disco"
 
-#: ../usr/lib/solydxk/conky/conky.py:589
+#: ../usr/lib/solydxk/conky/conky.py:570
 msgid "Net"
 msgstr "Net"
 
-#: ../usr/lib/solydxk/conky/conky.py:747
+#: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
-msgstr ""
+msgstr "Não foi possível definir a cor: %s"
 
 #: ../usr/lib/solydxk/conky/execcmd.py:20
 #, python-format
@@ -230,39 +230,3 @@ msgstr "Comando para executar: %(cmd)s"
 #: ../usr/share/applications/solydxk-conky.desktop.in.h:1
 msgid "SolydXK Conky configuration"
 msgstr "Configuração SolydXK Conky"
-
-#~ msgid "Conky started"
-#~ msgstr "Conky iniciou"
-
-#~ msgid "Conky stopped"
-#~ msgstr "Conky parou"
-
-#~ msgid "Conky is not running"
-#~ msgstr "Conky não está em execução"
-
-#~ msgid "Conky removed"
-#~ msgstr "Conky removido"
-
-#~ msgid "Get default settings"
-#~ msgstr "Obter configurações padrão"
-
-#~ msgid "Start reading existing settings"
-#~ msgstr "Começar a ler as configurações existentes"
-
-#~ msgid "Save settings..."
-#~ msgstr "Salvar configurações..."
-
-#~ msgid "Conkyrc template not found %(template)s"
-#~ msgstr "Modelo .conkyrc não encontrado %(template)s"
-
-#~ msgid "Lua template not found %(template)s"
-#~ msgstr "Modelo Lua não encontrado %(template)s"
-
-#~ msgid "Start script not found %(template)s"
-#~ msgstr "Script de inicio não encontrado %(template)s"
-
-#~ msgid "Save settings done"
-#~ msgstr "Salvar configurações concluído"
-
-#~ msgid "Nothing to open"
-#~ msgstr "Nada a abrir"

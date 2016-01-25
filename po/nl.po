@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 17:03+0100\n"
-"PO-Revision-Date: 2015-10-22 05:34+0000\n"
+"POT-Creation-Date: 2016-01-25 07:23+0100\n"
+"PO-Revision-Date: 2016-01-22 10:25+0000\n"
 "Last-Translator: Arjen Balfoort <schoelje@solydxk.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/solydxk/solydxk-conky/"
 "language/nl/)\n"
@@ -200,23 +200,23 @@ msgstr "Celsius"
 msgid "Fahrenheit"
 msgstr "Fahrenheit"
 
-#: ../usr/lib/solydxk/conky/conky.py:586
+#: ../usr/lib/solydxk/conky/conky.py:567
 msgid "CPU"
 msgstr "CPU"
 
-#: ../usr/lib/solydxk/conky/conky.py:587
+#: ../usr/lib/solydxk/conky/conky.py:568
 msgid "RAM"
 msgstr "RAM"
 
-#: ../usr/lib/solydxk/conky/conky.py:588
+#: ../usr/lib/solydxk/conky/conky.py:569
 msgid "Disk"
 msgstr "HD"
 
-#: ../usr/lib/solydxk/conky/conky.py:589
+#: ../usr/lib/solydxk/conky/conky.py:570
 msgid "Net"
 msgstr "Net"
 
-#: ../usr/lib/solydxk/conky/conky.py:747
+#: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
 msgstr ""
@@ -229,39 +229,3 @@ msgstr "Commando uitvoeren: %(cmd)s"
 #: ../usr/share/applications/solydxk-conky.desktop.in.h:1
 msgid "SolydXK Conky configuration"
 msgstr "SolydXK Conky configuratie"
-
-#~ msgid "Conky started"
-#~ msgstr "Conky gestart"
-
-#~ msgid "Conky stopped"
-#~ msgstr "Conky gestopt"
-
-#~ msgid "Conky is not running"
-#~ msgstr "Conky is niet gestart"
-
-#~ msgid "Conky removed"
-#~ msgstr "Conky verwijderd"
-
-#~ msgid "Get default settings"
-#~ msgstr "Verkrijg standaardinstellingen"
-
-#~ msgid "Start reading existing settings"
-#~ msgstr "Start met het lezen van bestaande instellingen"
-
-#~ msgid "Save settings..."
-#~ msgstr "Bewaar instellingen..."
-
-#~ msgid "Conkyrc template not found %(template)s"
-#~ msgstr "Conkyrc template niet gevonden %(template)s"
-
-#~ msgid "Lua template not found %(template)s"
-#~ msgstr "Lua template niet gevonden %(template)s"
-
-#~ msgid "Start script not found %(template)s"
-#~ msgstr "Start script niet gevonden %(template)s"
-
-#~ msgid "Save settings done"
-#~ msgstr "Bewaren instellingen afgerond"
-
-#~ msgid "Nothing to open"
-#~ msgstr "Niets te openen"

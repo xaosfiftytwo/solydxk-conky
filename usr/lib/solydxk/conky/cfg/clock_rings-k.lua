@@ -28,9 +28,9 @@ settings_table = {
         -- "bg_colour" is the colour of the base ring.
         bg_colour=0xffffff,
         -- "bg_alpha" is the alpha value of the base ring.
-        bg_alpha=0.1,
+        bg_alpha=0.4,
         -- "fg_colour" is the colour of the indicator part of the ring.
-        fg_colour=0x00BFFF,
+        fg_colour=0x009BD4,
         -- "fg_alpha" is the alpha value of the indicator part of the ring.
         fg_alpha=0.2,
         -- "x" and "y" are the x and y coordinates of the centre of the ring, relative to the top left corner of the Conky window.
@@ -49,8 +49,8 @@ settings_table = {
         arg='%M.%S',
         max=60,
         bg_colour=0xffffff,
-        bg_alpha=0.1,
-        fg_colour=0x00BFFF,
+        bg_alpha=0.4,
+        fg_colour=0x009BD4,
         fg_alpha=0.4,
         x=100, y=160,
         radius=56,
@@ -63,8 +63,8 @@ settings_table = {
         arg='%S',
         max=60,
         bg_colour=0xffffff,
-        bg_alpha=0.1,
-        fg_colour=0x00BFFF,
+        bg_alpha=0.4,
+        fg_colour=0x009BD4,
         fg_alpha=0.6,
         x=100, y=160,
         radius=62,
@@ -77,8 +77,8 @@ settings_table = {
         arg='%d',
         max=31,
         bg_colour=0xffffff,
-        bg_alpha=0.1,
-        fg_colour=0x00BFFF,
+        bg_alpha=0.4,
+        fg_colour=0x009BD4,
         fg_alpha=0.8,
         x=100, y=160,
         radius=70,
@@ -91,8 +91,8 @@ settings_table = {
         arg='%m',
         max=12,
         bg_colour=0xffffff,
-        bg_alpha=0.1,
-        fg_colour=0x00BFFF,
+        bg_alpha=0.4,
+        fg_colour=0x009BD4,
         fg_alpha=1,
         x=100, y=160,
         radius=76,
@@ -144,8 +144,8 @@ settings_table = {
     },
     {
         name='downspeedf',
-        arg='wlan0',
-        max=30000,
+        arg='[ETH]',
+        max=[DSPEED],
         bg_colour=0xffffff,
         bg_alpha=0.4,
         fg_colour=0x00455F,
@@ -158,8 +158,8 @@ settings_table = {
     },
     {
         name='upspeedf',
-        arg='wlan0',
-        max=3000,
+        arg='[ETH]',
+        max=[USPEED],
         bg_colour=0xffffff,
         bg_alpha=0.4,
         fg_colour=0xffffff,
@@ -179,7 +179,7 @@ clock_r=65
 -- "clock_x" and "clock_y" are the coordinates of the centre of the clock, in pixels, from the top left of the Conky window.
 
 clock_x=100
-clock_y=150
+clock_y=160
 
 show_seconds=true
 

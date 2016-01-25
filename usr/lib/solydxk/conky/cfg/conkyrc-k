@@ -43,7 +43,7 @@ lua_load ~/.lua/scripts/clock_rings.lua
 lua_draw_hook_pre clock_rings
 
 TEXT
-${voffset 0}${color 00BFFF}${font Clear Sans:size=16}${time %A}${font}${voffset -18}${alignr 65}${color FFFFFF}${font Clear Sans:size=38}${time %e}${font}
+${voffset 0}${color 009BD4}${font Clear Sans:size=16}${time %A}${font}${voffset -18}${alignr 65}${color FFFFFF}${font Clear Sans:size=38}${time %e}${font}
 ${color FFFFFF}${voffset -30}${color FFFFFF}${font Clear Sans:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font Clear Sans:size=20}${time %Y}${font}${color FFFFFF}${hr}
 ${voffset 165}${font Clear Sans:size=16}${alignr 25}${pre_exec cat /etc/issue.net}
 #${image /usr/share/solydxk/logo.png -p 59,109 -s 80x80}
