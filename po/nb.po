@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Anders Dalen <anders@andersdalen.no>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-25 07:23+0100\n"
-"PO-Revision-Date: 2016-01-22 10:25+0000\n"
-"Last-Translator: Arjen Balfoort <schoelje@solydxk.com>\n"
+"POT-Creation-Date: 2016-04-06 16:03+0200\n"
+"PO-Revision-Date: 2016-01-28 10:05+0000\n"
+"Last-Translator: Anders Dalen <anders@andersdalen.no>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/solydxk/solydxk-"
 "conky/language/nb/)\n"
 "Language: nb\n"
@@ -37,7 +38,7 @@ msgstr "System"
 
 #: ../usr/lib/solydxk/conky/conky.py:127
 msgid "Colors"
-msgstr ""
+msgstr "Farger"
 
 #: ../usr/lib/solydxk/conky/conky.py:128
 msgid "Save"
@@ -141,15 +142,15 @@ msgstr "Kjerne"
 
 #: ../usr/lib/solydxk/conky/conky.py:153
 msgid "Date and title"
-msgstr ""
+msgstr "Dato og tittel"
 
 #: ../usr/lib/solydxk/conky/conky.py:154
 msgid "Day and clock"
-msgstr ""
+msgstr "Dag og klokkeslett"
 
 #: ../usr/lib/solydxk/conky/conky.py:155
 msgid "System information"
-msgstr ""
+msgstr "Systeminformasjon"
 
 #: ../usr/lib/solydxk/conky/conky.py:156
 msgid "Core temp"
@@ -169,7 +170,7 @@ msgstr "Harddisktemperatur"
 
 #: ../usr/lib/solydxk/conky/conky.py:163
 msgid "Reset"
-msgstr ""
+msgstr "Resett"
 
 #: ../usr/lib/solydxk/conky/conky.py:169
 msgid "Start"
@@ -218,7 +219,7 @@ msgstr "Nett"
 #: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
-msgstr ""
+msgstr "Kunne ikke sette farge: %s"
 
 #: ../usr/lib/solydxk/conky/execcmd.py:20
 #, python-format

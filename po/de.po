@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ilu lu, 2015
+# ilu lu, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solydxk-conky\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-25 07:23+0100\n"
-"PO-Revision-Date: 2016-01-22 10:25+0000\n"
-"Last-Translator: Arjen Balfoort <schoelje@solydxk.com>\n"
+"POT-Creation-Date: 2016-04-06 16:03+0200\n"
+"PO-Revision-Date: 2016-03-16 15:31+0000\n"
+"Last-Translator: ilu lu\n"
 "Language-Team: German (http://www.transifex.com/solydxk/solydxk-conky/"
 "language/de/)\n"
 "Language: de\n"
@@ -38,7 +38,7 @@ msgstr "System"
 
 #: ../usr/lib/solydxk/conky/conky.py:127
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: ../usr/lib/solydxk/conky/conky.py:128
 msgid "Save"
@@ -138,19 +138,19 @@ msgstr "Gehäuselüftergeschwindigkeit"
 
 #: ../usr/lib/solydxk/conky/conky.py:152 ../usr/lib/solydxk/conky/conky.py:162
 msgid "Kernel"
-msgstr "Kernel"
+msgstr "Betriebssystemkern"
 
 #: ../usr/lib/solydxk/conky/conky.py:153
 msgid "Date and title"
-msgstr ""
+msgstr "Datum und Bezeichnung"
 
 #: ../usr/lib/solydxk/conky/conky.py:154
 msgid "Day and clock"
-msgstr ""
+msgstr "Tag und Uhr"
 
 #: ../usr/lib/solydxk/conky/conky.py:155
 msgid "System information"
-msgstr ""
+msgstr "Systeminformation"
 
 #: ../usr/lib/solydxk/conky/conky.py:156
 msgid "Core temp"
@@ -170,7 +170,7 @@ msgstr "Festplattentemperatur"
 
 #: ../usr/lib/solydxk/conky/conky.py:163
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: ../usr/lib/solydxk/conky/conky.py:169
 msgid "Start"
@@ -219,7 +219,7 @@ msgstr "Netz"
 #: ../usr/lib/solydxk/conky/conky.py:751
 #, python-format
 msgid "Could not set color: %s"
-msgstr ""
+msgstr "Konnte die Farbe: %s nicht setzen"
 
 #: ../usr/lib/solydxk/conky/execcmd.py:20
 #, python-format

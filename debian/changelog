@@ -1,3 +1,9 @@
+solydxk-conky (1.1.6) debian; urgency=low
+
+  * Added Dutch translation
+
+ -- Arjen Balfoort <arjenbalfoort@solydxk.com>  Wed, 06 Apr 2016 16:03:05 +0200
+
 solydxk-conky (1.1.5) debian; urgency=low
 
   * Changed position and colors for new flat wallpaper
